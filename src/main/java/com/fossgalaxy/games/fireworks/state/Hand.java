@@ -1,14 +1,16 @@
 package com.fossgalaxy.games.fireworks.state;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class Hand implements Iterable<Card> {
+public class Hand implements Iterable<Card>, HandI {
 	//flag for controlling if players remember what they haven't been told
 	private boolean negativeInfomation = true;
 	private int size;
@@ -93,7 +95,7 @@ public class Hand implements Iterable<Card> {
 		return Arrays.asList(cards).iterator();
 	}
 
-	void setCard(int slot, Card card) {
+	public void setCard(int slot, Card card) {
 		clear(slot);
 		cards[slot] = card;
 	}
@@ -155,4 +157,35 @@ public class Hand implements Iterable<Card> {
 		return possibleColour.contains(card.colour) && possibleValue.contains(card.value);
 	}
 
+	public List<CardColour> getPossibleColours(int slot) {
+		return new ArrayList<CardColour>(possibleColours.get(slot));
+	}
+
+	public List<Integer> getPossibleValues(int slot) {
+		return new ArrayList<Integer>(possibleValues.get(slot));
+	}
+
+	@Override
+	public void tell(CardColour colour, int[] slots) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tell(Integer value, int[] slots) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isCard(int slot, Card card) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isPopulated(int slot) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

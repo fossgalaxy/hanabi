@@ -7,12 +7,16 @@ import java.util.Map;
 import java.util.Random;
 
 import com.fossgalaxy.games.fireworks.ai.rule.logic.DeckUtils;
+import com.fossgalaxy.games.fireworks.solver.HandSolver;
+import com.fossgalaxy.games.fireworks.solver.SimpleSolver;
+import com.fossgalaxy.games.fireworks.solver.SlotContraint;
 import com.fossgalaxy.games.fireworks.state.BasicState;
 import com.fossgalaxy.games.fireworks.state.Card;
 import com.fossgalaxy.games.fireworks.state.CardColour;
 import com.fossgalaxy.games.fireworks.state.Deck;
 import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.Hand;
+import com.fossgalaxy.games.fireworks.state.SimpleHand;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.actions.TellColour;
 import com.fossgalaxy.games.fireworks.state.actions.TellValue;
@@ -54,8 +58,12 @@ public class Simulator {
 		for (int slot=0; slot<state.getHand(0).getSize(); slot++) {
 			possibleCards.add(state.getHand(0).getCard(slot));
 		}
+			
+		HandSolver solver = new SimpleSolver();
+		SimpleHand hand = solver.solve(possibleCards, SlotContraint.build(state.getHand(0)));
 		
-		Collections.sort(possibleCards);
+		System.out.println(hand);
+
 		
 		Map<Integer, List<Card>> possible = DeckUtils.bindCard(0, state.getHand(0), possibleCards);
 		
