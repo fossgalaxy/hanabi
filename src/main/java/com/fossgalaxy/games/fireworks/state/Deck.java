@@ -67,17 +67,9 @@ public class Deck {
 	 */
 	public void init() {
 		for (CardColour c : CardColour.values()) {
-			for (int i = 1; i <= 5; i++) {
-				cards.add(new Card(i, c));
-
-				// there are at least 2 of every non-5 card
-				if (i <= 4) {
-					cards.add(new Card(i, c));
-				}
-
-				// there are are 3 ones
-				if (i == 1) {
-					cards.add(new Card(i, c));
+			for (CardValue v : CardValue.values()) {
+				for (int i=0; i<v.getCount(); i++) {
+					cards.add(new Card(v,c));
 				}
 			}
 		}

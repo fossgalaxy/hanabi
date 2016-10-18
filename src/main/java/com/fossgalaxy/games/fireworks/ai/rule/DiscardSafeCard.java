@@ -1,6 +1,7 @@
 package com.fossgalaxy.games.fireworks.ai.rule;
 
 import com.fossgalaxy.games.fireworks.state.CardColour;
+import com.fossgalaxy.games.fireworks.state.CardValue;
 import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.Hand;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
@@ -16,31 +17,35 @@ public class DiscardSafeCard extends AbstractDiscardRule {
             return null;
         }
 
-        int[] tableCurr = new int[CardColour.values().length];
-        int min = 5;
+        CardValue[] tableCurr = new CardValue[CardColour.values().length];
+        CardValue min = CardValue.FIVE;
 
         for (CardColour c : CardColour.values()) {
-            tableCurr[c.ordinal()] = state.getTableValue(c);
-            if (tableCurr[c.ordinal()] < min) {
-                min = tableCurr[c.ordinal()];
+            CardValue currValue = state.getTableValue(c);
+            tableCurr[c.ordinal()] = currValue;
+
+            if (currValue.isBefore(min)) {
+                min = currValue;
             }
         }
 
         Hand myHand = state.getHand(playerID);
         for (int slot = 0; slot < state.getHandSize(); slot++) {
             CardColour c = myHand.getKnownColour(slot);
-            Integer value = myHand.getKnownValue(slot);
+            CardValue value = myHand.getKnownValue(slot);
 
             if (c != null) {
+                CardValue currentTable = tableCurr[c.ordinal()];
+
                 //even if we don't know the value, sometimes we know it's safe to discard
                 if (value == null) {
-                    if (tableCurr[c.ordinal()] == 5) {
+                    if (currentTable.isLastInChain()) {
                         return new DiscardCard(slot);
                     }
-                } else if (tableCurr[c.ordinal()] > value) {
+                } else if (value.isBefore(currentTable)) {
                         return new DiscardCard(slot);
                 }
-            } else if (value < min) {
+            } else if (value.isBefore(min)) {
                 return new DiscardCard(slot);
             }
         }

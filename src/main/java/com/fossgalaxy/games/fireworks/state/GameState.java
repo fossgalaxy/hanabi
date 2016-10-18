@@ -4,8 +4,6 @@ import java.util.Collection;
 
 public interface GameState {
 	int[] HAND_SIZE = { -1, -1, 5, 5, 4, 4 };
-	int STARTING_LIVES = 3;
-	int STARTING_INFO = 8;
 
 	void init();
 	void init(Long seed);
@@ -42,7 +40,7 @@ public interface GameState {
 
 	int getStartingLives();
 
-	int getTableValue(CardColour colour);
+	CardValue getTableValue(CardColour colour);
 
 	boolean isGameOver();
 

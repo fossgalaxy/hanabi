@@ -4,12 +4,16 @@ package com.fossgalaxy.games.fireworks.state;
  * A card for the Hanabi card game
  */
 public class Card implements Comparable<Card> {
-	public final Integer value;
+	public final CardValue value;
 	public final CardColour colour;
 
-	public Card(Integer value, CardColour colour) {
-		this.value = value;
+	public Card(CardValue value, CardColour colour) {
+		this(colour, value);
+	}
+
+	public Card(CardColour colour, CardValue value) {
 		this.colour = colour;
+		this.value = value;
 	}
 
 	@Override

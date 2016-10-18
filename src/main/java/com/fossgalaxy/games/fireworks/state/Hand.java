@@ -44,7 +44,7 @@ public interface Hand {
      * @param slot the slot to query
      * @return the value of the slot, from the owner's perspective.
      */
-    Integer getKnownValue(int slot);
+    CardValue getKnownValue(int slot);
 
     /**
      * The number of cards which make up this hand.
@@ -136,5 +136,5 @@ public interface Hand {
 
     boolean hasColour(CardColour colour);
 
-    boolean hasValue(Integer value);
+    boolean hasValue(CardValue value);
 }
