@@ -26,8 +26,8 @@ public class MCTS implements Agent {
     public static final int DEFAULT_TREE_DEPTH_MUL = 1;
     public static final int NO_LIMIT = 100;
 
+    protected int rolloutDepth;
     protected final int roundLength;
-    protected final int rolloutDepth;
     protected final int treeDepthMul;
     protected final Random random;
     protected final Logger logger = LoggerFactory.getLogger(MCTS.class);

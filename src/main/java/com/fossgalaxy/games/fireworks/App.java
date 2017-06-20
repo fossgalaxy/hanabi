@@ -2,6 +2,7 @@ package com.fossgalaxy.games.fireworks;
 
 import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.ai.iggi.IGGIFactory;
+import com.fossgalaxy.games.fireworks.ai.mcts.InfoSetStats;
 import com.fossgalaxy.games.fireworks.ai.mcts.MCTS;
 import com.fossgalaxy.games.fireworks.ai.mcts.MCTSPredictor;
 import com.fossgalaxy.games.fireworks.ai.rule.Rule;
@@ -10,8 +11,11 @@ import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 import com.fossgalaxy.games.fireworks.utils.GameUtils;
 import com.fossgalaxy.games.fireworks.utils.SetupUtils;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Hello world!
@@ -23,6 +27,8 @@ public class App {
     public static final String MCTS = "mcts";
     public static final String PREDICTOR_MCTSND = "pmctsND";
 
+    private static PrintStream ps;
+
     //utility class - don't create instances of it
     private App() {
 
@@ -33,23 +39,57 @@ public class App {
      *
      * @param args Ignored
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
+        File file = new File("uncertainty.csv");
+        ps = new PrintStream(file);
 
         double sum = 0;
         int games = 0;
         System.out.println("Start");
 
+        Random r = new Random();
+
+        String[] agentPairedArr = new String[] {"iggi", "flawed", "internal", "vdb-paper"};
+
         for (int run = 0; run < 100; run++) {
-            GameStats stats = playMixed("HatGuessing", "iggi");
-            sum += stats.score;
-            games++;
+            long seed = r.nextLong();
+            for (String agentPaired : agentPairedArr) {
+
+                String pairedStr = "";
+                for (int i=0; i<5; i++) {
+                    if (i!=0) {
+                        pairedStr += "|";
+                    }
+                    pairedStr += agentPaired;
+                }
+
+                GameStats stats = playMixed(run, seed, "pmctsAR["+pairedStr+"]", agentPaired);
+                sum += stats.score;
+                games++;
+
+            }
         }
+
+        ps.close();
 
         if (games == 0) {
             return;
         }
 
         System.out.println("avg: " + sum / games);
+    }
+
+    public static String join(int[] inta) {
+        String name = "";
+        for (int i=0; i<inta.length; i++) {
+            if (i!=0) {
+                name += ",";
+            }
+            name += inta[i];
+        }
+
+       return name;
     }
 
     /**
@@ -79,8 +119,8 @@ public class App {
      * @param agent          The agent to make all the others
      * @return GameStats for the game
      */
-    public static GameStats playMixed(String agentUnderTest, String agent) {
-        Random r = new Random();
+    public static GameStats playMixed(int run, long seed, String agentUnderTest, String agent) {
+        Random r = new Random(seed);
         int whereToPlace = r.nextInt(5);
 
         String[] names = new String[5];
@@ -93,7 +133,19 @@ public class App {
             players[i] = buildAgent(names[i], i, agent, names.length);
         }
 
-        GameStats stats = GameUtils.runGame("", null, SetupUtils.toPlayers(names, players));
+
+        MCTSPredictor.statList.clear();
+
+        GameStats stats = GameUtils.runGame("", seed, SetupUtils.toPlayers(names, players));
+
+        int move=0;
+        for (InfoSetStats statObject : MCTSPredictor.statList) {
+            ps.println(String.format("%d,%d,%d,%d,%s,%s,%d,%d,%s", run, move, whereToPlace, seed, agentUnderTest, agent, statObject.cardsInDeck, statObject.uniqueCardsInDeck, join(statObject.cardPossibilities)));
+            move++;
+        }
+
+        System.out.println(MCTSPredictor.statList);
+
         System.out.println("the agents scored: " + stats);
         return stats;
     }

@@ -15,57 +15,70 @@ import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 import com.fossgalaxy.games.fireworks.utils.DebugUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
+ * Adaptive Rollout version of MCTS predictor.
+ *
  * Created by WebPigeon on 09/08/2016.
  */
-public class MCTSPredictor extends MCTS {
+public class MCTSPredictorAR extends MCTS {
     public static List<InfoSetStats> statList = new ArrayList<>();
 
     protected Agent[] agents;
     protected int agentID;
 
+    protected int MAX_ROLLOUT_LENGTH = 50;
+
     //usage: if pmcts=2 then iggi|iggi|null|iggi|iggi
     //usage: if pmcts=2 && model=1,2,3,4,5,5 then 1,2,3,4,5,6|1,2,3,4,5,6|null|1,2,3,4,5,6|1,2,3,4,5,6
-    @AgentConstructor(App.PREDICTOR_MCTS)
+    @AgentConstructor(App.PREDICTOR_MCTS+"AR")
     @Parameter(id=0, func="parseAgents")
-    public MCTSPredictor(Agent[] others) {
+    public MCTSPredictorAR(Agent[] others) {
         super();
         this.agents = others;
     }
 
-    public MCTSPredictor(Agent[] agents, int roundLength) {
+    public MCTSPredictorAR(Agent[] agents, int roundLength) {
         super(roundLength);
         this.agents = agents;
     }
 
-    public MCTSPredictor(Agent[] agents, int roundLength, int rolloutDepth, int treeDepthMul) {
+    public MCTSPredictorAR(Agent[] agents, int roundLength, int rolloutDepth, int treeDepthMul) {
         super(roundLength, rolloutDepth, treeDepthMul);
         this.agents = agents;
     }
 
-    @AgentBuilderStatic(App.PREDICTOR_MCTSND)
+    @AgentBuilderStatic(App.PREDICTOR_MCTSND+"AR")
     @Parameter(id=0, func="parseAgents")
-    public static MCTSPredictor buildPMCTSND(Agent[] agents) {
-        return new MCTSPredictor(agents, MCTS.DEFAULT_ITERATIONS, MCTS.NO_LIMIT, MCTS.NO_LIMIT);
+    public static MCTSPredictorAR buildPMCTSND(Agent[] agents) {
+        return new MCTSPredictorAR(agents, MCTS.DEFAULT_ITERATIONS, MCTS.NO_LIMIT, MCTS.NO_LIMIT);
     }
 
     @Override
     public Action doMove(int agentID, GameState state) {
         agents[agentID] = null;
 
-        recordStats(agentID, state);
+        InfoSetStats stats = recordStats(agentID, state);
+
+        //rollout length adaption
+        double maxUncertainty = stats.cardsInDeck * state.getHandSize();
+
+        double uncertainty = stats.totalPossibleCards / maxUncertainty;
+        uncertainty = Math.min(1, uncertainty);
+        this.rolloutDepth = (int)(MAX_ROLLOUT_LENGTH * (1 - uncertainty));
 
         return super.doMove(agentID, state);
     }
 
-    private void recordStats(int agentID, GameState state) {
+    private InfoSetStats recordStats(int agentID, GameState state) {
         InfoSetStats stats = new InfoSetStats();
 
         Hand hand = state.getHand(agentID);
         Map<Integer, List<Card>> possibleCards = DeckUtils.bindBlindCard(agentID, hand, state.getDeck().toList());
         for (int slot=0; slot<hand.getSize(); slot++) {
             stats.cardPossibilities[slot] = possibleCards.get(slot).size();
+            stats.totalPossibleCards += possibleCards.get(slot).size();
         }
 
         stats.cardsInDeck = state.getDeck().toList().size();
@@ -73,6 +86,7 @@ public class MCTSPredictor extends MCTS {
         stats.uniqueCardsInDeck = uniqueCards.size();
 
         statList.add(stats);
+        return stats;
     }
 
     public static Agent[] parseAgents(String agentsStr) {
@@ -205,6 +219,6 @@ public class MCTSPredictor extends MCTS {
 
     @Override
     public String toString() {
-        return String.format("MCTS(%s)", Arrays.toString(agents));
+        return String.format("PMCTSAR(%s)", Arrays.toString(agents));
     }
 }
