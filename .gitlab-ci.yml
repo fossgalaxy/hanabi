@@ -97,7 +97,6 @@ mvn_sonar:jdk8:
     - tags
   image: maven:3.3.9-jdk-8
 
-## Pages is enterise only until we develop a work-around
 pages:
   image: busybox:latest
   stage: deploy
@@ -111,6 +110,6 @@ pages:
     paths:
     - public
   only:
-    - master
+    - tags
 
 
