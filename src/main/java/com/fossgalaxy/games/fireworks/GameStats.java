@@ -1,5 +1,10 @@
 package com.fossgalaxy.games.fireworks;
 
+import com.fossgalaxy.games.fireworks.state.actions.Action;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameStats {
     /**
      * A unique ID for this game.
@@ -40,7 +45,9 @@ public class GameStats {
      */
     public final int disqal;
 
-    public GameStats(String gameID, int players, int score, int lives, int moves, int information, int disqual) {
+    public final List<Action> movesMade;
+
+    public GameStats(String gameID, int players, int score, int lives, int moves, int information, int disqual, List<Action> movesMade) {
         this.gameID = gameID;
         this.nPlayers = players;
         this.score = score;
@@ -48,6 +55,7 @@ public class GameStats {
         this.moves = moves;
         this.information = information;
         this.disqal = disqual;
+        this.movesMade = movesMade;
     }
 
     @Override

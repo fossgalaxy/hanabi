@@ -10,6 +10,7 @@ import com.fossgalaxy.games.fireworks.ai.rule.RuleSet;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 import com.fossgalaxy.games.fireworks.utils.GameUtils;
 import com.fossgalaxy.games.fireworks.utils.SetupUtils;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,6 +29,7 @@ public class App {
     public static final String PREDICTOR_MCTSND = "pmctsND";
 
     private static PrintStream ps;
+    private static List<ISEnvolope> debugLog;
 
     //utility class - don't create instances of it
     private App() {
@@ -43,6 +45,7 @@ public class App {
 
         File file = new File("uncertainty.csv");
         ps = new PrintStream(file);
+        debugLog = new ArrayList<>();
 
         double sum = 0;
         int games = 0;
@@ -71,6 +74,12 @@ public class App {
             }
         }
 
+        ps.close();
+
+        //dump active game data to json for later analysis
+        Gson gson = new Gson();
+        PrintStream ps = new PrintStream(new File("is-debug.json"));
+        ps.println(gson.toJson(debugLog));
         ps.close();
 
         if (games == 0) {
@@ -139,6 +148,19 @@ public class App {
         GameStats stats = GameUtils.runGame("", seed, SetupUtils.toPlayers(names, players));
 
         int move=0;
+
+        //record all game data for python scripts to look at
+        ISEnvolope envolope = new ISEnvolope();
+        envolope.run = run;
+        envolope.playerPos = whereToPlace;
+        envolope.seed = seed;
+        envolope.agentTest = agentUnderTest;
+        envolope.agentPaired = agent;
+        envolope.stats = new ArrayList<>(MCTSPredictor.statList);
+        envolope.result = stats;
+        debugLog.add(envolope);
+
+        //record data into CSV file for analysis
         for (InfoSetStats statObject : MCTSPredictor.statList) {
             ps.println(String.format("%d,%d,%d,%d,%s,%s,%d,%d,%s,%s",
                     run,

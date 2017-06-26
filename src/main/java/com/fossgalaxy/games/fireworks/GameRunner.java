@@ -11,9 +11,7 @@ import com.fossgalaxy.games.fireworks.utils.DebugUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * A basic runner for the game of Hanabi.
@@ -30,6 +28,8 @@ public class GameRunner {
     private int moves;
 
     private int nextPlayer;
+
+    private List<Action> movesMade;
 
     /**
      * Create a game runner with a given ID and a number of players.
@@ -60,6 +60,7 @@ public class GameRunner {
         this.nextPlayer = 0;
         this.moves = 0;
         this.gameID = gameID;
+        this.movesMade = new ArrayList<>();
     }
 
     /**
@@ -143,6 +144,7 @@ public class GameRunner {
 
         //get the action and try to apply it
         Action action = player.getAction();
+        movesMade.add(action);
 
         long endTime = getTick();
         logger.debug("agent {} took {} ms to make their move", nextPlayer, endTime - startTime);
@@ -194,10 +196,11 @@ public class GameRunner {
                     }
                 }
             }
-            return new GameStats(gameID, players.length, state.getScore(), state.getLives(), moves, state.getInfomation(), strikes);
+
+            return new GameStats(gameID, players.length, state.getScore(), state.getLives(), moves, state.getInfomation(), strikes, movesMade);
         } catch (Exception ex) {
             logger.error("the game went bang", ex);
-            return new GameStats(gameID, players.length, state.getScore(), state.getLives(), moves, state.getInfomation(), 1);
+            return new GameStats(gameID, players.length, state.getScore(), state.getLives(), moves, state.getInfomation(), 1, movesMade);
         }
 
     }

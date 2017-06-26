@@ -9,6 +9,7 @@ import com.fossgalaxy.games.fireworks.annotations.Parameter;
 import com.fossgalaxy.games.fireworks.state.Card;
 import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.Hand;
+import com.fossgalaxy.games.fireworks.state.TimedHand;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
@@ -62,6 +63,7 @@ public class MCTSPredictor extends MCTS {
     private void recordStats(int agentID, GameState state) {
         InfoSetStats stats = new InfoSetStats();
 
+        //possible card stats
         Hand hand = state.getHand(agentID);
         Map<Integer, List<Card>> possibleCards = DeckUtils.bindBlindCard(agentID, hand, state.getDeck().toList());
         for (int slot=0; slot<hand.getSize(); slot++) {
@@ -69,9 +71,15 @@ public class MCTSPredictor extends MCTS {
             stats.cardUniques[slot] = (int)possibleCards.get(slot).stream().distinct().count();
         }
 
+        //deck stats
         stats.cardsInDeck = state.getDeck().toList().size();
         Set<Card> uniqueCards = new HashSet<>(state.getDeck().toList());
         stats.uniqueCardsInDeck = uniqueCards.size();
+
+        //sod it, lets record the lot
+        stats.possibleCards = possibleCards;
+        stats.deck = state.getDeck().toList();
+        stats.myHand = new TimedHand((TimedHand)state.getHand(agentID));
 
         statList.add(stats);
     }
