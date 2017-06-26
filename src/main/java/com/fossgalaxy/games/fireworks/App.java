@@ -64,7 +64,7 @@ public class App {
                     pairedStr += agentPaired;
                 }
 
-                GameStats stats = playMixed(run, seed, "pmctsAR["+pairedStr+"]", agentPaired);
+                GameStats stats = playMixed(run, seed, "pmcts["+pairedStr+"]", agentPaired);
                 sum += stats.score;
                 games++;
 
@@ -140,7 +140,18 @@ public class App {
 
         int move=0;
         for (InfoSetStats statObject : MCTSPredictor.statList) {
-            ps.println(String.format("%d,%d,%d,%d,%s,%s,%d,%d,%s", run, move, whereToPlace, seed, agentUnderTest, agent, statObject.cardsInDeck, statObject.uniqueCardsInDeck, join(statObject.cardPossibilities)));
+            ps.println(String.format("%d,%d,%d,%d,%s,%s,%d,%d,%s,%s",
+                    run,
+                    move,
+                    whereToPlace,
+                    seed,
+                    agentUnderTest,
+                    agent,
+                    statObject.cardsInDeck,
+                    statObject.uniqueCardsInDeck,
+                    join(statObject.cardPossibilities),
+                    join(statObject.cardUniques)
+            ));
             move++;
         }
 

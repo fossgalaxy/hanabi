@@ -66,6 +66,7 @@ public class MCTSPredictor extends MCTS {
         Map<Integer, List<Card>> possibleCards = DeckUtils.bindBlindCard(agentID, hand, state.getDeck().toList());
         for (int slot=0; slot<hand.getSize(); slot++) {
             stats.cardPossibilities[slot] = possibleCards.get(slot).size();
+            stats.cardUniques[slot] = (int)possibleCards.get(slot).stream().distinct().count();
         }
 
         stats.cardsInDeck = state.getDeck().toList().size();

@@ -7,6 +7,7 @@ import java.util.Arrays;
  */
 public class InfoSetStats {
     public int[] cardPossibilities = new int[5];
+    public int[] cardUniques = new int[5];
     public int cardsInDeck = 0;
     public int uniqueCardsInDeck = 0;
     public int totalPossibleCards = 0;
