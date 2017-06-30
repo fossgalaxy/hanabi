@@ -1,6 +1,10 @@
 target/
 .*
 
+# Data files
+*.log
+*.json
+
 # Intellij
 .idea/
 *.iml

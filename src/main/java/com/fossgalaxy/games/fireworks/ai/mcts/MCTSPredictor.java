@@ -81,6 +81,10 @@ public class MCTSPredictor extends MCTS {
         stats.deck = state.getDeck().toList();
         stats.myHand = new TimedHand((TimedHand)state.getHand(agentID));
 
+        //MCTS 'stupidness' checks
+        stats.currScore = state.getScore();
+        stats.currLives = state.getLives();
+
         statList.add(stats);
     }
 

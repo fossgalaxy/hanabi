@@ -21,6 +21,8 @@ public class InfoSetStats {
     public int cardsInDeck = 0;
     public int uniqueCardsInDeck = 0;
     public int totalPossibleCards = 0;
+    public int currScore;
+    public int currLives;
 
     public String toString() {
         return String.format("%s, %d, %d", Arrays.toString(cardPossibilities), cardsInDeck, uniqueCardsInDeck);

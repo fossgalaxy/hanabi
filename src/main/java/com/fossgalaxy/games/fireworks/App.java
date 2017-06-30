@@ -130,14 +130,14 @@ public class App {
      */
     public static GameStats playMixed(int run, long seed, String agentUnderTest, String agent) {
         Random r = new Random(seed);
-        int whereToPlace = r.nextInt(5);
+        int whereToPlace = r.nextInt(2);
 
-        String[] names = new String[5];
+        String[] names = new String[2];
         for (int i = 0; i < names.length; i++) {
             names[i] = whereToPlace == i ? agentUnderTest : agent;
         }
 
-        Agent[] players = new Agent[5];
+        Agent[] players = new Agent[2];
         for (int i = 0; i < names.length; i++) {
             players[i] = buildAgent(names[i], i, agent, names.length);
         }
