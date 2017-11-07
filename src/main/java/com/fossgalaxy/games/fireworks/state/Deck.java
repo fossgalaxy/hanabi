@@ -1,10 +1,9 @@
 package com.fossgalaxy.games.fireworks.state;
 
+import com.fossgalaxy.games.fireworks.DeckEquals;
+
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Represents a deck of Hanabi cards.
@@ -124,4 +123,18 @@ public class Deck implements Serializable {
     public int hashCode() {
         return cards.hashCode();
     }
+
+    public static Deck toNormalisedDeck(Deck input){
+        Map<CardColour, CardColour> transformation = new EnumMap<>(CardColour.class);
+        int colour = 0;
+        Deck normalised = new Deck();
+        for(Card card : input.cards){
+            if(!transformation.containsKey(card.colour)){
+                transformation.put(card.colour, CardColour.values()[colour++]);
+            }
+            normalised.cards.add(new Card( card.value, transformation.get(card.colour)));
+        }
+        return normalised;
+    }
+
 }

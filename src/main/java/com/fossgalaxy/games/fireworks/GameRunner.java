@@ -1,5 +1,6 @@
 package com.fossgalaxy.games.fireworks;
 
+import com.fossgalaxy.games.fireworks.ai.AgentPlayer;
 import com.fossgalaxy.games.fireworks.players.Player;
 import com.fossgalaxy.games.fireworks.state.*;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
@@ -7,13 +8,12 @@ import com.fossgalaxy.games.fireworks.state.events.CardDrawn;
 import com.fossgalaxy.games.fireworks.state.events.CardReceived;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 import com.fossgalaxy.games.fireworks.state.events.GameInformation;
+import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 import com.fossgalaxy.games.fireworks.utils.DebugUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * A basic runner for the game of Hanabi.
@@ -210,6 +210,24 @@ public class GameRunner {
                 players[i].sendMessage(event);
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        List<GameStats> results = new ArrayList<>();
+        for(int players = 2; players <= 5; players++){
+            for(int gameNumber = 0; gameNumber < 1000; gameNumber++){
+                GameRunner runner = new GameRunner("IGGI2-" + gameNumber, players);
+                for(int i = 0; i < players; i++){
+                    runner.addPlayer(new AgentPlayer("IGGI2", AgentUtils.buildAgent("iggi2")));
+                }
+
+                GameStats stats = runner.playGame(random.nextLong());
+                results.add(stats);
+            }
+        }
+
+        System.out.println(results.stream().mapToInt(x -> x.score).summaryStatistics());
     }
 
 }
