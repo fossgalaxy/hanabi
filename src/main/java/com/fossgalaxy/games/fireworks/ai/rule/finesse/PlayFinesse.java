@@ -40,11 +40,9 @@ public class PlayFinesse extends AbstractRule {
         Integer[] playerSlots = infoValue.getSlots();
 
         // this was not a finesse tell
-        if (infoValue.wasToldTo(selectPlayer(playerID, state))) {
+        if (!infoValue.wasToldTo(selectPlayer(playerID, state))) {
             return null;
         }
-
-
 
         // is one of the cards indicated 1 card away from being playable
         Hand playerHand = state.getHand(playerTold);

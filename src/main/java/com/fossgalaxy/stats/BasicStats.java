@@ -6,6 +6,7 @@ package com.fossgalaxy.stats;
 public class BasicStats implements StatsSummary {
     private double min;
     private double max;
+    private double sumSq;
     private double sum;
     private int n;
 
@@ -14,6 +15,7 @@ public class BasicStats implements StatsSummary {
         this.max = -Double.MAX_VALUE;
         this.n = 0;
         this.sum = 0;
+        this.sumSq = 0;
     }
 
     @Override
@@ -21,6 +23,7 @@ public class BasicStats implements StatsSummary {
         this.min = Math.min(number, min);
         this.max = Math.max(number, max);
         this.sum += number;
+        this.sumSq += number * number;
         this.n++;
     }
 
@@ -48,6 +51,13 @@ public class BasicStats implements StatsSummary {
     public double getMean() {
         return sum/n;
     }
+
+    public double getStdDev() {
+        double top = sumSq - (n * getMean() * getMean());
+        top /= n-1;
+        return Math.sqrt(top);
+    }
+
 
     public String toString() {
         return String.format("min: %f, max: %f, avg: %f, rng: %f ", getMin(), getMax(), getMean(), getRange());
