@@ -1,6 +1,5 @@
 package com.fossgalaxy.games.fireworks.state;
 
-import com.fossgalaxy.games.fireworks.DeckEquals;
 
 import java.io.Serializable;
 import java.util.*;
