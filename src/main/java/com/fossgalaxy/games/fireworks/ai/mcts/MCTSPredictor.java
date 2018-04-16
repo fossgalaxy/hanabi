@@ -16,7 +16,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by WebPigeon on 09/08/2016.
+ * Use MCTS for our nodes, and policies for other players.
+ *
+ * This agent will use UCT for our nodes, but paired agents will consult the policy rather than performing a standard
+ * expansion. This is often quicker than performing a complete expansion of the nodes and will take into account what
+ * the paired agent will do rather than settling on the highest scoring nodes for them.
  */
 public class MCTSPredictor extends MCTS {
     protected Agent[] agents;

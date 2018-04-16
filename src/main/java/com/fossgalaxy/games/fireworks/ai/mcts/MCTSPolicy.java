@@ -9,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A version of the MCTS agent that replaces the random rollout with policy based rollouts.
+ * A version of the MCTS agent that replaces the random rollout with policy based roll-outs.
+ *
+ * This variant uses standard MCTS for all agent's moves in the tree, and then uses the policy for roll-outs.
  */
 public class MCTSPolicy extends MCTS {
     private final Logger LOG = LoggerFactory.getLogger(MCTSPolicy.class);
@@ -33,9 +35,11 @@ public class MCTSPolicy extends MCTS {
     /**
      * Rather than perform a random move, query a policy for one.
      *
-     * @param state
-     * @param playerID
-     * @return
+     * Consult the policy provided when creating the agent for all agent's moves.
+     *
+     * @param state the current game state
+     * @param playerID the current player ID
+     * @return the move that the policy has selected
      */
     @Override
     protected Action selectActionForRollout(GameState state, int playerID) {
