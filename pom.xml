@@ -3,7 +3,7 @@
 
     <groupId>com.fossgalaxy.games</groupId>
     <artifactId>fireworks</artifactId>
-    <version>0.2.3-SNAPSHOT</version>
+    <version>0.2.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <description>An implementation of the board game Hanabi</description>
