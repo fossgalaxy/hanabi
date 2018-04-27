@@ -34,6 +34,20 @@ public class CardDiscarded extends GameEvent {
         }
     }
 
+
+    public int getPlayerId(){
+        return playerId;
+    }
+
+    public int getSlotId() {
+        return slotId;
+    }
+
+    public int getValue(){
+        return value;
+    }
+
+
     @Override
     public String toString() {
         return String.format(CARD_FORMAT, playerId, slotId, colour, value);

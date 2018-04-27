@@ -54,6 +54,22 @@ public class CardPlayed extends GameEvent {
 
     }
 
+    public int getPlayerId(){
+        return playerId;
+    }
+
+    public int getSlotId() {
+        return slotId;
+    }
+
+    public int getValue(){
+        return value;
+    }
+
+    public CardColour getColour() {
+        return colour;
+    }
+
     @Override
     public String toString() {
         return String.format(CARD_FORMAT, playerId, slotId, colour, value);
