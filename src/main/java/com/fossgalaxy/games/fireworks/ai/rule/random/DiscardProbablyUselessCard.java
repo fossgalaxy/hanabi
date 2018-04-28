@@ -19,9 +19,9 @@ import java.util.Map;
  * Probability that it is useless.
  * <p>
  * Can be useless because of a number of reasons
- * CardComponent.value <= table[CardComponent.colour]
- * CardComponent.value <= min(table)
- * CardComponent.value > max(possible(CardComponent.colour))
+ * CardComponent.value &lt;= table[CardComponent.colour]
+ * CardComponent.value &lt;= min(table)
+ * CardComponent.value &gt; max(possible(CardComponent.colour))
  */
 public class DiscardProbablyUselessCard extends AbstractDiscardRule {
 

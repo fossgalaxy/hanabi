@@ -98,6 +98,7 @@ public class App2Csv {
      * This is a convenience wrapper around the player version of this function.
      *
      * @param gameID The gameID to log this game under
+     * @param agentUT agent under test
      * @param name the names of the agents that are playing
      * @param seed the seed to use for deck ordering
      * @param agents the agents to use for the game
@@ -139,6 +140,7 @@ public class App2Csv {
      * This is the default game rules that the game comes with.
      *
      * @param gameID The gameID to log this game under
+     * @param agentUT agent under test
      * @param name the names of the agents that are playing
      * @param seed the seed to use for deck ordering
      * @param players the players to use for the game
@@ -153,6 +155,7 @@ public class App2Csv {
      * Play a complete information (cheated) version of Hanabi
      *
      * @param gameID The gameID to log this game under
+     * @param agentUT agent under test
      * @param name the names of the agents that are playing
      * @param seed the seed to use for deck ordering
      * @param players the players to use for the game
@@ -167,6 +170,7 @@ public class App2Csv {
      * Utility function that handles running and logging of the game to stdout in csv format
      *
      * @param gameID The gameID to log this game under
+     * @param agentUnderTest agent under test
      * @param name the name of the agents that are playing
      * @param seed the seed to use for the deck ordering
      * @param runner the runner to use for this game

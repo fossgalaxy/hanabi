@@ -557,7 +557,7 @@ public class BasicState implements GameState {
     /**
      * Automatically generated hashcode.
      *
-     * @return
+     * @return a suitable hashcode
      */
     @Override
     public int hashCode() {

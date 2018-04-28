@@ -249,9 +249,9 @@ public class HatGuessing implements Agent {
      * the game, i.e. a card that if removed from the game will imply a perfect score cannot
      * be obtained.
      *
-     * @param agentID
-     * @param state
-     * @return
+     * @param agentID the current agentID
+     * @param state the current game state
+     * @return the recommendation that should be made
      */
     public Recommendation doRecommend(int agentID, GameState state) {
 

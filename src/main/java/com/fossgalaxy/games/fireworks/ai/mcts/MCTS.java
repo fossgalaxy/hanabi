@@ -48,13 +48,6 @@ public class MCTS implements Agent {
         this(roundLength, DEFAULT_ROLLOUT_DEPTH, DEFAULT_TREE_DEPTH_MUL);
     }
 
-    /**
-     * Create an MCTS agent which has the parameters.
-     *
-     * @param roundLength
-     * @param rolloutDepth
-     * @param treeDepthMul
-     */
     @AgentConstructor("mcts")
     public MCTS(int roundLength, int rolloutDepth, int treeDepthMul) {
         this.roundLength = roundLength;

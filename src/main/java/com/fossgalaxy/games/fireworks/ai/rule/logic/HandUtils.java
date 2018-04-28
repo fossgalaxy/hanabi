@@ -97,6 +97,8 @@ public class HandUtils {
 
     /**
      * Will return the index of a card that matches the rule
+     *
+     * @param hand the hand we are checking against
      * @param value The value we are looking for
      * @return index of the card or -1 if there isn't one
      */

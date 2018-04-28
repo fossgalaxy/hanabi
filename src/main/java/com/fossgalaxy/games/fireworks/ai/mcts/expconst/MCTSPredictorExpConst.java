@@ -29,13 +29,6 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
         this(expConst, MCTSExpConst.NO_LIMIT, MCTSExpConst.NO_LIMIT, agents);
     }
 
-    /**
-     * Create an MCTS agent which has the parameters.
-     *
-     * @param expConst the exploration constant
-     * @param rolloutDepth
-     * @param treeDepthMul
-     */
     @AgentConstructor(App.PREDICTOR_MCTS+"ExpConst")
     @Parameter(id=3, func="parseThemAsClones")
     public MCTSPredictorExpConst(double expConst, int rolloutDepth, int treeDepthMul, Agent[] agents) {

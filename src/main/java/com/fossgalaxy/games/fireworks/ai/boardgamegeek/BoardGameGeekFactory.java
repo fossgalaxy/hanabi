@@ -11,9 +11,8 @@ public class BoardGameGeekFactory {
 
     /**
      * A factory implementing CliveJ's ruleset
-     *
-     * @link https://www.boardgamegeek.com/article/23427635#23427635
-     * @return
+     * see https://www.boardgamegeek.com/article/23427635#23427635
+     * @return the clivej agent
      */
     @AgentBuilderStatic("clivej")
     public static ProductionRuleAgent buildCliveJ() {

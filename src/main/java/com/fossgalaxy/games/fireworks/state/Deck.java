@@ -94,7 +94,9 @@ public class Deck implements Serializable {
     }
 
     /**
-     * shuffle this deck with a prefined seed
+     * shuffle this deck with a predefined seed
+     *
+     * @param seed the seed to use for the new deck ordering
      */
     public void shuffle(long seed) {
         Collections.shuffle(cards, new Random(seed));

@@ -108,6 +108,8 @@ public class RuleSet {
      * Get a list of all rules present in the codebase which are not present in the list of permitted rules.
      *
      * This is useful for checking if any rules have been left out of the of the ruleset.
+     *
+     * @return any rules which are present in the framework but not in the above ruleset.
      */
     public static Collection<Class<? extends Rule>> checkRuleSet(){
 

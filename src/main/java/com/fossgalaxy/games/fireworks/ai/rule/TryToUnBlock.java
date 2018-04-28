@@ -84,9 +84,9 @@ public class TryToUnBlock extends AbstractRule {
     /**
      * Can a player cause an information token to become available during their turn?
      *
-     * @param state
-     * @param playerID
-     * @return
+     * @param state the game state to check against
+     * @param playerID the player to check
+     * @return the move we can make to give this player a move.
      */
     public Action isUnblocking(GameState state, int playerID) {
         Hand hand = state.getHand(playerID);
@@ -115,9 +115,9 @@ public class TryToUnBlock extends AbstractRule {
     /**
      * A blocked player is a player who has no safe play or discard move and has no information tokens to tell.
      *
-     * @param state
-     * @param playerID
-     * @return
+     * @param state the state to check against
+     * @param playerID the playerID to check against
+     * @return true if the player is blocked, false otherwise
      */
     public boolean isBlocked(GameState state, int playerID) {
         Hand hand = state.getHand(playerID);

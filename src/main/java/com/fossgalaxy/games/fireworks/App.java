@@ -141,6 +141,7 @@ public class App {
      *
      * @param agentUnderTest The agent to be player 0
      * @param agent          The agent to make all the others
+     * @param seed the seed for the deck ordering
      * @return GameStats for the game
      */
     public static GameStats playMixed(String agentUnderTest, String agent, long seed) {

@@ -41,10 +41,10 @@ public class DeckUtils {
      * This should be used if the player has a perfect infomation copy of the state but should act like they don't.
      * (mostly important for rule based AIs which can be used as predictors).
      *
-     * @param player
-     * @param hand
-     * @param deck
-     * @return
+     * @param player the current player
+     * @param hand the current player's hand
+     * @param deck the cards in the deck
+     * @return a list of possible card bindings for each slot
      */
     public static Map<Integer, List<Card>> bindBlindCard(int player, Hand hand, List<Card> deck) {
 

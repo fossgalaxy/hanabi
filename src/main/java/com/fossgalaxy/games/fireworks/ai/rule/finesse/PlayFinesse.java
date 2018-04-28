@@ -72,9 +72,9 @@ public class PlayFinesse extends AbstractRule {
     /**
      * This method will return -1 if someone doesn't want us to know what order our cards were delt in.
      *
-     * @param state
-     * @param playerID
-     * @return
+     * @param state the current game state
+     * @param playerID the current playerID
+     * @return -1 if the newest card is not known, else the slot containing the newest card
      */
     public static int getNewestCard(GameState state, int playerID) {
         try {

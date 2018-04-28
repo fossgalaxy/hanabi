@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A filter agent which will consult its policy with 1-threshold probabilty, i.e. 0.4 -> execute policy 60% of the time,
+ * A filter agent which will consult its policy with 1-threshold probabilty, i.e. 0.4 means execute policy 60% of the time,
  * execute a random move otherwise.
  *
  * This was created to test the agent's ability to work with noisy/inaccurate policies.
