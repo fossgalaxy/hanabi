@@ -1,5 +1,6 @@
 target/
 .*
+*.tar.gz
 
 # logging and data dumps
 *.log
