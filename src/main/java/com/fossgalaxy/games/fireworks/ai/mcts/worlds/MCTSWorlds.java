@@ -15,10 +15,7 @@ import com.fossgalaxy.games.fireworks.state.actions.Action;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * A version of MCTS that uses fixed iteration counts and limited determinations per world.
@@ -107,6 +104,8 @@ public class MCTSWorlds extends MCTSExpConst {
 
         IterationObject iterationObject = new IterationObject(agentID);
         for (int itr = 0; itr < iterationsPerWorld; itr++) {
+            Collections.shuffle(worlds);
+
             for (GameState determinize : worlds) {
                 GameState currentState = determinize.getCopy();
 

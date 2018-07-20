@@ -135,6 +135,8 @@ public class MCTSPredictorWorlds extends MCTSPredictorExpConst {
 
         IterationObject iterationObject = new IterationObject(agentID);
         for (int itr = 0; itr < iterationsPerWorld; itr++) {
+            Collections.shuffle(worlds);
+
             for (GameState determinize : worlds) {
                 GameState currentState = determinize.getCopy();
 
