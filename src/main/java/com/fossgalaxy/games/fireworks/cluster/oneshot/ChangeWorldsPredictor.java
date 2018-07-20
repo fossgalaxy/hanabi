@@ -35,9 +35,9 @@ public class ChangeWorldsPredictor {
         for (int seedID = 0; seedID < numSeeds; seedID++) {
             long seed = r.nextLong();
 
-            for (int worlds=100; worlds<10_000; worlds += 500) {
+            for (int worlds=0; worlds<=10_000; worlds += 500) {
                     for (String agentPaired : agentsPaired) {
-                        String agentUnderTest = String.format(App.PREDICTOR_MCTSND+"Fixed[%d:%d:%s]", ITR_BUDGET, worlds, agentPaired);
+                        String agentUnderTest = String.format(App.PREDICTOR_MCTSND+"Fixed[%d:%d:%s]", ITR_BUDGET, worlds==0?1:worlds, agentPaired);
                         System.out.println(String.format("%s %s %d", agentUnderTest, agentPaired, seed));
                     }
                 }

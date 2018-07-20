@@ -151,6 +151,6 @@ public class MCTSPredictorFixedDet extends MCTSPredictorExpConst {
 
     @Override
     public String toString() {
-        return "MCTSFixedDet";
+        return "MCTSWorlds";
     }
 }
