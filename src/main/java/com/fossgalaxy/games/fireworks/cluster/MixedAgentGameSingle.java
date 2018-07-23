@@ -91,7 +91,13 @@ public class MixedAgentGameSingle {
                     stats = GameUtils.runGame(gameID, seed, SetupUtils.toPlayers(agentStr, agents));
                 }
 
-                String agentList = String.join(",", Arrays.asList(agentStr));
+                //ensure that agent names are escaped for the CSV file
+                String[] agentStrEscape = new String[agentStr.length];
+                for (int i=0; i<agentStr.length; i++) {
+                    agentStrEscape[i] = String.format("\"%s\"", agentStr[i]);
+                }
+
+                String agentList = String.join(",", Arrays.asList(agentStrEscape));
                 String csvLine = String.format("%s,\"%s\",\"%s\",%s,%s,%d,%d,%d,%d,%d,%d,%d",
                         gameID,
                         agentUnderTest,

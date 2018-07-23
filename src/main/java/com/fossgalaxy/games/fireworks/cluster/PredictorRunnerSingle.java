@@ -1,5 +1,6 @@
 package com.fossgalaxy.games.fireworks.cluster;
 
+import com.fossgalaxy.games.fireworks.App;
 import com.fossgalaxy.games.fireworks.GameStats;
 import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
@@ -66,6 +67,7 @@ public class PredictorRunnerSingle {
                 //generate agent under test
                 String realAgentUnderTest = generatePredictorString(agentUnderTest, nPlayers, predictorType);
 
+                //generate the agent list
                 agents[agentUnderTestIndex] = AgentUtils.buildAgent(realAgentUnderTest);
                 agentStr[agentUnderTestIndex] = agentUnderTest;
                 for (int i = 0; i < nPlayers; i++) {
@@ -76,6 +78,7 @@ public class PredictorRunnerSingle {
                     agentStr[i] = agentPaired;
                 }
 
+                //figure out what kind of game we are playing
                 GameStats stats;
                 if (gameType.equals(GAME_CHEAT)) {
                     stats = GameUtils.runCheatGame(gameID, seed, SetupUtils.toPlayers(agentStr, agents));
@@ -83,7 +86,14 @@ public class PredictorRunnerSingle {
                     stats = GameUtils.runGame(gameID, seed, SetupUtils.toPlayers(agentStr, agents));
                 }
 
-                String agentList = String.join(",", Arrays.asList(agentStr));
+                //ensure that agent names are escaped for the CSV file
+                String[] agentStrEscape = new String[agentStr.length];
+                for (int i=0; i<agentStr.length; i++) {
+                    agentStrEscape[i] = String.format("\"%s\"", agentStr[i]);
+                }
+
+                //generate the CSV file name
+                String agentList = String.join(",", Arrays.asList(agentStrEscape));
                 String csvLine = String.format("%s,\"%s\",\"%s\",%s,%s,%d,%d,%d,%d,%d,%d,%d,\"%s\"",
                         gameID,
                         agentUnderTest,
@@ -128,7 +138,8 @@ public class PredictorRunnerSingle {
     }
 
     public static String generatePredictorString(String agentUnderTest, int nPlayers, String model) {
-        if ("pmcts".equals(agentUnderTest) || "pmctsND".equals(agentUnderTest)) {
+
+        if ( agentUnderTest.startsWith(App.PREDICTOR_MCTS) ) {
             StringBuilder builder = new StringBuilder();
             builder.append(agentUnderTest);
             builder.append(AgentUtils.PARAM_START);
