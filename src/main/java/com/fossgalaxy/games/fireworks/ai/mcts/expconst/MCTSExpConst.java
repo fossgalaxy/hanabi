@@ -106,7 +106,7 @@ public class MCTSExpConst implements Agent {
             int score = rollout(currentState, agentID, current);
             current.backup(score);
             if(calcTree){
-                System.out.println(root.printD3());
+                System.err.println(root.printD3());
             }
         }
 

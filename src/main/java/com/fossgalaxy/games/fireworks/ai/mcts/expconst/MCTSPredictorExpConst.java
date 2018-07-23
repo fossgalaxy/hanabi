@@ -49,8 +49,6 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
             predictors[i] = AgentUtils.buildAgent(agentStr);
         }
 
-        System.out.println(Arrays.toString(predictors));
-
         return predictors;
     }
 
@@ -61,8 +59,6 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
         for (int i=0; i<agentStr.length; i++) {
             predictors[i] = AgentUtils.buildAgent(agentStr[i]);
         }
-
-        System.out.println(Arrays.toString(agentStr));
 
         return predictors;
     }
