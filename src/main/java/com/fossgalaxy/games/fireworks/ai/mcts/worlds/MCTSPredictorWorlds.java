@@ -83,8 +83,6 @@ public class MCTSPredictorWorlds extends MCTSPredictorExpConst {
             predictors[i] = AgentUtils.buildAgent(agentStr);
         }
 
-        System.out.println(Arrays.toString(predictors));
-
         return predictors;
     }
 
