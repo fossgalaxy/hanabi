@@ -12,8 +12,8 @@ public final class SetupUtils {
 
     private static final String[] DEFAULT_PAIRED = {"iggi", "internal", "outer", "legal_random", "vdb-paper", "flawed", "piers"};
     private static final String[] DEFAULT_AGENTS = {"iggi", "outer", "flatmc[legal_random]", "piers", "flatmc[flawed]", "flawed", "vdb-paper", "flatmc[iggi]", "mctsPolicyND[flawed]", "mctsPolicyND[legal_random]", "mctsPolicyND[iggi]", "legal_random", "mctsND", App.PREDICTOR_MCTSND};
-    private static final Integer DEFAULT_SEED_COUNT = 10;
-    private static final Integer DEFAULT_RUN_COUNT = 2;
+    private static final Integer DEFAULT_SEED_COUNT = 250;
+    private static final Integer DEFAULT_RUN_COUNT = 3;
 
     private SetupUtils() {
 
