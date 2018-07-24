@@ -33,7 +33,7 @@ public class MCTSPredictorWorlds extends MCTSPredictorExpConst {
     protected final int determinsations;
 
     protected final Random random;
-    protected final Logger logger = LoggerFactory.getLogger(MCTSFixedDet.class);
+    protected final Logger logger = LoggerFactory.getLogger(MCTSPredictorWorlds.class);
 
     private final boolean calcTree = false;
 
@@ -66,14 +66,14 @@ public class MCTSPredictorWorlds extends MCTSPredictorExpConst {
 
     @AgentBuilderStatic(App.PREDICTOR_MCTSND+"Worlds")
     @Parameter(id=2, func="parseThemAsClones")
-    public static MCTSFixedDet buildMCTSND(int iterationBudget, int determinsations, Agent[] agents) {
-        return new MCTSFixedDet(iterationBudget, determinsations, MCTSNode.DEFAULT_EXP_CONST);
+    public static MCTSPredictorWorlds buildMCTSND(int iterationBudget, int determinsations, Agent[] agents) {
+        return new MCTSPredictorWorlds(iterationBudget, determinsations, MCTSNode.DEFAULT_EXP_CONST, agents);
     }
 
     @AgentBuilderStatic(App.PREDICTOR_MCTSND+"WorldsDefault")
     @Parameter(id=0, func="parseThemAsClones")
-    public static MCTSFixedDet buildMCTSDefaults(Agent[] agents) {
-        return new MCTSFixedDet(ITERATION_BUDGET, DEFAULT_DET_COUNT, MCTSNode.DEFAULT_EXP_CONST);
+    public static MCTSPredictorWorlds buildMCTSDefaults(Agent[] agents) {
+        return new MCTSPredictorWorlds(ITERATION_BUDGET, DEFAULT_DET_COUNT, MCTSNode.DEFAULT_EXP_CONST, agents);
     }
 
     public static Agent[] parseThemAsClones(String agentStr) {
