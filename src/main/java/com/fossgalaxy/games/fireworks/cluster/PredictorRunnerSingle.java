@@ -139,7 +139,7 @@ public class PredictorRunnerSingle {
 
     public static String generatePredictorString(String agentUnderTest, int nPlayers, String model) {
 
-        if ( agentUnderTest.startsWith(App.PREDICTOR_MCTS) ) {
+        if ( "pmcts".equalsIgnoreCase(agentUnderTest) || "pmctsND".equalsIgnoreCase(agentUnderTest) ){
             StringBuilder builder = new StringBuilder();
             builder.append(agentUnderTest);
             builder.append(AgentUtils.PARAM_START);
