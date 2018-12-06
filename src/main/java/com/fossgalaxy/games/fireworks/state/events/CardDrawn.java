@@ -29,6 +29,22 @@ public class CardDrawn extends GameEvent {
         deck.remove(card);
     }
 
+    public int getPlayerId(){
+        return playerId;
+    }
+
+    public int getSlotId(){
+        return slotId;
+    }
+
+    public int getCardValue(){
+        return cardValue;
+    }
+
+    public CardColour getCardColour(){
+        return colour;
+    }
+
     @Override
     public boolean isVisibleTo(int playerID) {
         return playerID != this.playerId;

@@ -52,6 +52,14 @@ public class CheatEvent extends GameEvent {
         }
     }
 
+    public int getPlayerID(){
+        return playerID;
+    }
+
+    public Hand getHand(){
+        return hand;
+    }
+
     @Override
     public boolean isVisibleTo(int playerID) {
         return playerID == this.playerID;
