@@ -16,6 +16,18 @@ public class Utils {
 
     }
 
+    /**
+     * Generate a collection of actions which contains all possible actions for a given game.
+     *
+     * This does not take into account which actions are legal, it simply numerates the full list of actions that
+     * could be issued in any Hanabi game for a given player and a given game size.
+     *
+     * This will return moves from a given player's perspective, ie, if you are player 1 it won't include, "tell player 1 about their REDs"
+     *
+     * @param playerID The current player ID
+     * @param numPlayers the number of players
+     * @return a collection of all possible actions
+     */
     public static Collection<Action> generateAllActions(int playerID, int numPlayers) {
 
         HashSet<Action> list = new HashSet<>();
@@ -44,6 +56,16 @@ public class Utils {
         return list;
     }
 
+    /**
+     * Return all legal moves for a given game state.
+     *
+     * This method will return all moves that are legal for an agent to make in a given game state. Ie, moves that will
+     * not trigger rules violations.
+     *
+     * @param playerID The current player ID
+     * @param state the game state to consider
+     * @return a collection of all legal moves
+     */
     public static Collection<Action> generateActions(int playerID, GameState state) {
         HashSet<Action> list = new HashSet<>();
 
@@ -82,6 +104,19 @@ public class Utils {
         return list;
     }
 
+    /**
+     * Return a list of legal moves, excluding tell actions which don't make any sense.
+     *
+     * This is the same as GenerateActions but will exclude tell actions which don't provide any additional information
+     * about a card directly to the told player. This does not take into account indirect information, IE, by pointing
+     * out red cards that you already know about I am telling you that all other cards are not red.
+     *
+     * Eg, if player 1 has red cards but knows that they are red, this will not return "Tell player 1 about RED"
+     *
+     * @param playerID the current player ID
+     * @param state the current game state
+     * @return a collection of 'useful' actions
+     */
     public static Collection<Action> generateSuitableActions(int playerID, GameState state) {
         HashSet<Action> list = new HashSet<>();
 
