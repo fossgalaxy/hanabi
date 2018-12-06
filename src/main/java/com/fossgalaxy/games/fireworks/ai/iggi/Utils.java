@@ -95,6 +95,11 @@ public class Utils {
             }
         }
 
+        //if we have no information, abort
+        if (state.getInfomation() == 0) {
+            return list;
+        }
+
         //Legal Information Actions
         for (int player = 0; player < state.getPlayerCount(); player++) {
             //can't tell self about hand
