@@ -13,7 +13,9 @@ import java.awt.*;
 public class TableCard extends JComponent {
     private GameState state;
     private CardColour cardColour;
-    private transient Stroke outline = new BasicStroke(5);
+
+    private transient Stroke outline = new BasicStroke(2);
+    private transient Stroke outlineMissing = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 0, new float[]{9}, 0);
 
     public TableCard(GameState state, CardColour colour) {
         this.setPreferredSize(new Dimension(90, 135));
@@ -27,10 +29,20 @@ public class TableCard extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        // Pretty mode
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         g2.setStroke(outline);
 
         Color javaColour = GameView.getColor(cardColour);
         String cardVal = Integer.toString(state.getTableValue(cardColour));
+
+        if (cardVal.equals("0")) {
+            g2.setStroke(outlineMissing);
+        } else {
+            g2.setStroke(outline);
+        }
 
         g.setColor(javaColour);
         g.fillRoundRect(10, 10, getWidth() - 20, getHeight() - 20, 20, 20);

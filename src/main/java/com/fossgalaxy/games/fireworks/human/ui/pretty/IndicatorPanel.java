@@ -50,14 +50,14 @@ public class IndicatorPanel extends JComponent {
                 int y = i * height;
 
                 g.setColor(Color.BLACK);
-                g.fillRect(0, y, getWidth(), height);
+                g.fillRect(0, y, getWidth()-1, height);
 
                 if (myPossibleColours.contains(legalColours[i])) {
                     g.setColor(GameView.getColor(legalColours[i]));
-                    g.fillRect(0, y, getWidth(), height);
+                    g.fillRect(0, y, getWidth() -1, height);
                 }
                 g.setColor(Color.BLACK);
-                g.drawRect(0, y, getWidth(), height);
+                g.drawRect(0, y, getWidth()-1, height);
             }
         } else {
             boolean[] possibleB = new boolean[5];

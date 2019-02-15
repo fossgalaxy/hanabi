@@ -15,7 +15,7 @@ import java.awt.*;
 public class CardComponent extends JComponent {
     private final Hand hand;
     private final int slot;
-    private static Stroke outline = new BasicStroke(5);
+    private static Stroke outline = new BasicStroke(2);
     private boolean hover;
 
     public CardComponent(Hand hand, int slot) {
@@ -29,6 +29,9 @@ public class CardComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+
+        // Pretty mode
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         CardColour cardColour = null;
         Color javaColour = GameView.TANGO_DARK;
@@ -75,6 +78,9 @@ public class CardComponent extends JComponent {
 
     public static void drawCard(Graphics2D g, Color javaColour, String cardVal, int x, int y, int width, int height, boolean hover) {
 
+        // Pretty mode
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         g.translate(x, y);
 
         g.setColor(javaColour);
@@ -99,6 +105,9 @@ public class CardComponent extends JComponent {
     }
 
     public static void drawCard(Graphics2D g, Card card, int x, int y, int width, int height, boolean hover) {
+
+        // Pretty mode
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         if (card == null) {
             drawCard(g, GameView.TANGO_DARK, "?", x, y, width, height, hover);

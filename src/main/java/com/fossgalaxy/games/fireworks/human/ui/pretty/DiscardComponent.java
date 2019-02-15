@@ -24,6 +24,9 @@ public class DiscardComponent extends JComponent {
 
         Graphics2D g2 = (Graphics2D)g;
 
+        // Pretty mode
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         int cardPos = 0;
         int cardRow = 0;
         int yOffset = 15;
