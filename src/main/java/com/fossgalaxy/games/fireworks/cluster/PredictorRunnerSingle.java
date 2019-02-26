@@ -82,6 +82,8 @@ public class PredictorRunnerSingle {
                 GameStats stats;
                 if (gameType.equals(GAME_CHEAT)) {
                     stats = GameUtils.runCheatGame(gameID, seed, SetupUtils.toPlayers(agentStr, agents));
+                } else if (SetupUtils.isZeroLifeVersion()) {
+                    stats = GameUtils.runZeroLifeGame(gameID, seed, SetupUtils.toPlayers(agentStr, agents));
                 } else {
                     stats = GameUtils.runGame(gameID, seed, SetupUtils.toPlayers(agentStr, agents));
                 }
