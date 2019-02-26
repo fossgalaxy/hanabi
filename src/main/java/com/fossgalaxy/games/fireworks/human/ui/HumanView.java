@@ -22,7 +22,7 @@ public class HumanView extends GameRunner {
     private GameView gameView;
 
     public HumanView(UUID id, int playersCount) {
-        super(id, playersCount);
+        super(id.toString(), playersCount);
         gameView = new BasicGameView(800, 600);
     }
 

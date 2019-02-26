@@ -26,9 +26,22 @@ public final class GameUtils {
         assert gameID != null;
         assert players != null;
 
-        GameRunner runner = new GameRunner(gameID, players.length);
+        GameRunner runner = new GameRunner(gameID, players.length, false);
 
         for (Player player : players) {
+            runner.addPlayer(player);
+        }
+
+        return runner.playGame(seed);
+    }
+
+    public static GameStats runGameZL(String gameID, Long seed, Player ... players) {
+        assert gameID != null;
+        assert players != null;
+
+        GameRunner runner = new GameRunner(gameID, players.length, false);
+
+        for (Player player : players){
             runner.addPlayer(player);
         }
 
