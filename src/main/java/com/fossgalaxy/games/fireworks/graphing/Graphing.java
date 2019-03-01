@@ -30,7 +30,7 @@ public class Graphing {
 
 class FirstMoveGameRunner extends GameRunner {
     public FirstMoveGameRunner(UUID id, int playersCount) {
-        super(id, playersCount);
+        super(id.toString(), playersCount);
     }
 
     public FirstMoveGameRunner(String gameID, int expectedPlayers) {

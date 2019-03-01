@@ -26,9 +26,32 @@ public final class GameUtils {
         assert gameID != null;
         assert players != null;
 
-        GameRunner runner = new GameRunner(gameID, players.length);
+        GameRunner runner = new GameRunner(gameID, players.length, false);
 
         for (Player player : players) {
+            runner.addPlayer(player);
+        }
+
+        return runner.playGame(seed);
+    }
+
+    /**
+     * Play a zero-life is no score game.
+     *
+     * This is the variant being used by deep mind.
+     *
+     * @param gameID the game ID
+     * @param seed the seed used for deck ordering
+     * @param players the number of players that will be in the game
+     * @return the result of the game
+     */
+    public static GameStats runZeroLifeGame(String gameID, Long seed, Player ... players) {
+        assert gameID != null;
+        assert players != null;
+
+        GameRunner runner = new GameRunner(gameID, players.length, true);
+
+        for (Player player : players){
             runner.addPlayer(player);
         }
 

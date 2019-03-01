@@ -75,7 +75,7 @@ public class App2Csv {
                 FileOutputStream fos = new FileOutputStream(String.format("trace_%s.csv", id));
                 PrintStream ps = new PrintStream(fos)
         ) {
-            GameRunner runner = new GameRunner(id, players.length);
+            GameRunner runner = new GameRunner(id.toString(), players.length);
 
             for (int i = -0; i < players.length; i++) {
                 runner.addPlayer(players[i]);

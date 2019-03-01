@@ -19,6 +19,14 @@ public final class SetupUtils {
 
     }
 
+    public static boolean isZeroLifeVersion() {
+        String env = System.getenv("FIREWORKS_ZERO_LIFE");
+        if (env == null){
+            return false;
+        }
+        return env.equalsIgnoreCase("yes");
+    }
+
     /**
      * Get the list of agents to use for evaluation.
      * <p>

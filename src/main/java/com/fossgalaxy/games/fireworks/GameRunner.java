@@ -40,7 +40,19 @@ public class GameRunner {
      */
     @Deprecated
     public GameRunner(UUID id, int playersCount) {
-        this(id.toString(), playersCount);
+        this(id.toString(), playersCount, false);
+    }
+
+    /**
+     * Create a game runner with a given ID and number of players.
+     *
+     * This is backwards compatable (ie, no lives means score at last move).
+     *
+     * @param id the game id
+     * @param expectedPlayers the number of players that will be in the game
+     */
+    public GameRunner(String id, int expectedPlayers){
+        this(id, expectedPlayers, false);
     }
 
     /**
@@ -48,9 +60,10 @@ public class GameRunner {
      *
      * @param gameID          the ID of the game
      * @param expectedPlayers the number of players we expect to be playing.
+     * @param noLivesMeansZero true if no lives means the players get zero.
      */
-    public GameRunner(String gameID, int expectedPlayers) {
-        this(gameID, new BasicState(HAND_SIZE[expectedPlayers], expectedPlayers));
+    public GameRunner(String gameID, int expectedPlayers, boolean noLivesMeansZero) {
+        this(gameID, noLivesMeansZero ? new NoLifeState(HAND_SIZE[expectedPlayers], expectedPlayers) : new BasicState(HAND_SIZE[expectedPlayers], expectedPlayers));
     }
 
     public GameRunner(String gameID, GameState state){
