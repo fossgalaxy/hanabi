@@ -25,7 +25,6 @@ public class HumanUIAgent implements Agent {
     @Override
     public Action doMove(int agentID, GameState state) {
         Action action = null;
-        System.out.println(state.getTurnNumber());
 
         while (action == null) {
             try {
