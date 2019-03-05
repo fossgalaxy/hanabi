@@ -295,14 +295,14 @@ public class HatGuessing implements Agent {
         switch (event.getEvent()) {
             case CARD_INFO_COLOUR: {
                 CardInfoColour tellColour = (CardInfoColour) event;
-                int recommendation = 4 + getEncodedValue(tellColour.getPerformer(), tellColour.getPlayerId());
+                int recommendation = 4 + getEncodedValue(tellColour.getPerformer(), tellColour.getPlayerTold());
                 lastToldAction = Recommendation.values()[getMissingPiece(state, tellColour.getPerformer(), recommendation)];
                 cardsPlayedSinceHint = 0;
                 break;
             }
             case CARD_INFO_VALUE: {
                 CardInfoValue tellValue = (CardInfoValue) event;
-                int recommendation = getEncodedValue(tellValue.getPerformer(), tellValue.getPlayerId());
+                int recommendation = getEncodedValue(tellValue.getPerformer(), tellValue.getPlayerTold());
                 lastToldAction = Recommendation.values()[getMissingPiece(state, tellValue.getPerformer(), recommendation)];
                 cardsPlayedSinceHint = 0;
                 break;

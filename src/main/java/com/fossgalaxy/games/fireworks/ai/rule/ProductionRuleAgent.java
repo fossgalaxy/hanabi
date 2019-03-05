@@ -71,6 +71,8 @@ public class ProductionRuleAgent implements Agent {
                 //hey! that's not allowed!
                 throw new IllegalStateException("Default policy failed to return an action.");
             }
+
+            return defaultAction;
         }
     }
 
