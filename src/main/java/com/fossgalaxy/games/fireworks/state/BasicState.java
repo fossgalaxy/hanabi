@@ -1,5 +1,6 @@
 package com.fossgalaxy.games.fireworks.state;
 
+import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
 import java.util.*;
@@ -66,6 +67,7 @@ public class BasicState implements GameState {
      * A history of the game from this agent's perspective.
      */
     private final LinkedList<GameEvent> history;
+    private final LinkedList<HistoryEntry> historyEntries;
 
     /**
      * The current number of remaining information tokens
@@ -86,6 +88,13 @@ public class BasicState implements GameState {
     private int movesLeft;
 
     /**
+     * The current turn number.
+     *
+     * This is incremented whenever tick is called.
+     */
+    private int turnNumber;
+
+    /**
      * A copy constructor for the state.
      *
      * Creating a state and passing in a state as an argument will create a deep copy of that state. If someone may
@@ -100,8 +109,14 @@ public class BasicState implements GameState {
         this.information = state.information;
         this.lives = state.lives;
         this.movesLeft = state.movesLeft;
+
         this.history = new LinkedList<>();
         this.history.addAll(state.history);
+
+        this.historyEntries = new LinkedList<>();
+        this.historyEntries.addAll(state.historyEntries);
+
+        this.turnNumber = state.turnNumber;
 
         this.table = new EnumMap<>(state.table);
 
@@ -142,6 +157,9 @@ public class BasicState implements GameState {
         this.discard = new ArrayList<>();
         this.movesLeft = playerCount;
         this.history = new LinkedList<>();
+        this.historyEntries = new LinkedList<>();
+
+        this.turnNumber = 0;
 
         this.information = MAX_INFOMATION;
         this.lives = MAX_LIVES;
@@ -509,6 +527,7 @@ public class BasicState implements GameState {
      */
     @Override
     public void tick() {
+        turnNumber++;
         if (!deck.hasCardsLeft()) {
             movesLeft--;
         }
@@ -590,5 +609,15 @@ public class BasicState implements GameState {
     @Override
     public LinkedList<GameEvent> getHistory() {
         return history;
+    }
+
+    @Override
+    public int getTurnNumber() {
+        return turnNumber;
+    }
+
+    public void addAction(int playerID, Action action, List<GameEvent> effects) {
+        HistoryEntry entry = new HistoryEntry(playerID, action, effects);
+        historyEntries.add(entry);
     }
 }

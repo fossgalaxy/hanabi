@@ -25,6 +25,7 @@ public class DiscardCard implements Action {
         }
 
         int currentInfo = game.getInfomation();
+        int nextTurn = game.getTurnNumber() + 1;
 
         // deal with the old card first
         Card oldCard = game.getCardAt(playerID, slot);
@@ -34,8 +35,8 @@ public class DiscardCard implements Action {
         game.setInformation(currentInfo + 1);
 
         ArrayList<GameEvent> events = new ArrayList<>();
-        events.add(new CardDiscarded(playerID, slot, oldCard.colour, oldCard.value));
-        events.add(new CardReceived(playerID, slot, game.getDeck().hasCardsLeft()));
+        events.add(new CardDiscarded(playerID, slot, oldCard.colour, oldCard.value, nextTurn));
+        events.add(new CardReceived(playerID, slot, game.getDeck().hasCardsLeft(), nextTurn));
 
         // deal with the new card
         // XXX null pointer exception if next card was null.
@@ -43,7 +44,7 @@ public class DiscardCard implements Action {
             Card newCard = game.drawFromDeck();
             game.setCardAt(playerID, slot, newCard);
             //game.getHand(playerID).setHasCard(slot, true);
-            events.add(new CardDrawn(playerID, slot, newCard.colour, newCard.value));
+            events.add(new CardDrawn(playerID, slot, newCard.colour, newCard.value, nextTurn));
         } else {
             game.setCardAt(playerID, slot, null);
             //game.getHand(playerID).setHasCard(slot, false);

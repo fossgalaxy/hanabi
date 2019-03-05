@@ -11,8 +11,8 @@ public class CardInfoValue extends CardInfo {
 
     private final int value;
 
-    public CardInfoValue(int performer, int playerId, int value, Collection<Integer> slotsList) {
-        super(MessageType.CARD_INFO_VALUE, playerId, performer, slotsList);
+    public CardInfoValue(int performer, int playerId, int value, Collection<Integer> slotsList, int turnNumber) {
+        super(MessageType.CARD_INFO_VALUE, playerId, performer, slotsList, turnNumber);
         this.value = value;
     }
 

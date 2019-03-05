@@ -178,7 +178,7 @@ public class AgentUtils {
 
         if (name.startsWith("model")) {
             String[] parts = name.split(":");
-            Integer[] rules = Arrays.stream(parts[1].split(",")).map(Integer::parseInt).collect(Collectors.toList()).toArray(Integer[]::new);
+            Integer[] rules = Arrays.stream(parts[1].split(",")).map(Integer::parseInt).collect(Collectors.toList()).toArray(new Integer[0]);
             return buildAgent(rules);
         }
 

@@ -11,8 +11,8 @@ public class CardDrawn extends GameEvent {
     private final int cardValue;
     private final CardColour colour;
 
-    public CardDrawn(int playerId, int slotId, CardColour colour, int cardValue) {
-        super(MessageType.CARD_DRAWN);
+    public CardDrawn(int playerId, int slotId, CardColour colour, int cardValue, int turnNumber) {
+        super(MessageType.CARD_DRAWN, turnNumber);
         this.playerId = playerId;
         this.slotId = slotId;
         this.cardValue = cardValue;

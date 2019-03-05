@@ -17,7 +17,7 @@ public class TestCardReceived {
         final int playerID = 1;
         final int slotID = 1;
 
-        CardReceived instance = new CardReceived(playerID, slotID, present);
+        CardReceived instance = new CardReceived(playerID, slotID, present, GameEvent.UNKNOWN_TURN);
 
         assertEquals(present, instance.isReceived());
         assertEquals(playerID, instance.getPlayerId());
@@ -31,7 +31,7 @@ public class TestCardReceived {
         final int playerID = 1;
         final int slotID = 1;
 
-        CardReceived instance = new CardReceived(playerID, slotID, present);
+        CardReceived instance = new CardReceived(playerID, slotID, present, GameEvent.UNKNOWN_TURN);
 
         Hand hand = mock(Hand.class);
         GameState state = mock(GameState.class);
@@ -48,7 +48,7 @@ public class TestCardReceived {
         final int playerID = 1;
         final int slotID = 1;
 
-        CardReceived instance = new CardReceived(playerID, slotID, present);
+        CardReceived instance = new CardReceived(playerID, slotID, present, GameEvent.UNKNOWN_TURN);
 
         Hand hand = mock(Hand.class);
         GameState state = mock(GameState.class);

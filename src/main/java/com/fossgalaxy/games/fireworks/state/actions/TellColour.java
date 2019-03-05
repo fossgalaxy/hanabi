@@ -21,6 +21,7 @@ public class TellColour implements Action {
     public List<GameEvent> apply(int playerID, GameState game) {
 
         Hand hand = game.getHand(player);
+        int turnNumber = game.getTurnNumber() + 1;
 
         List<Integer> slots = new ArrayList<>();
         for (int i = 0; i < hand.getSize(); i++) {
@@ -46,7 +47,7 @@ public class TellColour implements Action {
         game.setInformation(information - 1);
         hand.setKnownColour(colour, slots.toArray(new Integer[slots.size()]));
 
-        GameEvent cardInformation = new CardInfoColour(playerID, player, colour, slots);
+        GameEvent cardInformation = new CardInfoColour(playerID, player, colour, slots, turnNumber);
         return Arrays.asList(cardInformation);
     }
 

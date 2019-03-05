@@ -6,6 +6,7 @@ import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -41,13 +42,30 @@ public class AgentPlayer implements Player {
         return policy.doMove(playerID, state);
     }
 
-    @Override
+    //@Override
     public void sendMessage(GameEvent msg) {
         assert state != null : "You didn't call setID before I got a message!";
         assert msg != null : "You passed me a null message";
 
         msg.apply(state, playerID);
         state.addEvent(msg);
+    }
+
+    @Override
+    public void resolveTurn(int actor, Action action, List<GameEvent> events) {
+        Objects.requireNonNull(state);
+        Objects.requireNonNull(events);
+
+        // add the action to the history
+        state.addAction(actor, action, events);
+
+        // apply the effects of the actions
+        for (GameEvent event : events){
+            event.apply(state, this.playerID);
+        }
+
+        // tick the game state
+        state.tick();
     }
 
     @Override

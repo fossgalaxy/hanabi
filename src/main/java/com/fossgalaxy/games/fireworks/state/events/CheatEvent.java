@@ -14,8 +14,8 @@ public class CheatEvent extends GameEvent {
     private int playerID;
     private Hand hand;
 
-    public CheatEvent(int playerID, Hand hand) {
-        super(MessageType.CHEAT);
+    public CheatEvent(int playerID, Hand hand, int turnNumber) {
+        super(MessageType.CHEAT, turnNumber);
         this.playerID = playerID;
         this.hand = Objects.requireNonNull(hand);
     }

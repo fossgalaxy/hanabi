@@ -23,6 +23,8 @@ public class TellValue implements Action {
     @Override
     public List<GameEvent> apply(int playerID, GameState game) {
 
+        int turnNumber = game.getTurnNumber();
+
         Hand hand = game.getHand(player);
         List<Integer> slots = new ArrayList<>();
         for (int i = 0; i < hand.getSize(); i++) {
@@ -48,7 +50,7 @@ public class TellValue implements Action {
         game.setInformation(information - 1);
         hand.setKnownValue(value, slots.toArray(new Integer[slots.size()]));
 
-        GameEvent cardInformation = new CardInfoValue(playerID, player, value, slots);
+        GameEvent cardInformation = new CardInfoValue(playerID, player, value, slots, turnNumber);
         return Arrays.asList(cardInformation);
     }
 

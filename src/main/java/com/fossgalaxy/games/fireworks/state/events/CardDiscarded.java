@@ -12,8 +12,8 @@ public class CardDiscarded extends GameEvent {
     private final int value;
     private final CardColour colour;
 
-    public CardDiscarded(int playerId, int slotId, CardColour colour, int value) {
-        super(MessageType.CARD_DISCARDED);
+    public CardDiscarded(int playerId, int slotId, CardColour colour, int value, int turnNumber) {
+        super(MessageType.CARD_DISCARDED, turnNumber);
         this.playerId = playerId;
         this.slotId = slotId;
         this.colour = colour;

@@ -12,8 +12,8 @@ public class CardPlayed extends GameEvent {
     private final int value;
     private final CardColour colour;
 
-    public CardPlayed(int playerId, int slotId, CardColour colour, int value) {
-        super(MessageType.CARD_PLAYED);
+    public CardPlayed(int playerId, int slotId, CardColour colour, int value, int turnNumber) {
+        super(MessageType.CARD_PLAYED, turnNumber);
         this.playerId = playerId;
         this.slotId = slotId;
         this.colour = colour;
