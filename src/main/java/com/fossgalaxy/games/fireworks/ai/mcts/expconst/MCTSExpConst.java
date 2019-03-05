@@ -149,8 +149,7 @@ public class MCTSExpConst implements Agent {
 
             Action action = current.getAction();
             if (action != null) {
-                List<GameEvent> events = action.apply(agent, state);
-                events.forEach(state::addEvent);
+                action.apply(agent, state);
                 state.tick();
             }
 
@@ -228,8 +227,7 @@ public class MCTSExpConst implements Agent {
 
         while (!state.isGameOver() && moves < rolloutDepth) {
             Action action = selectActionForRollout(state, playerID);
-            List<GameEvent> events = action.apply(playerID, state);
-            events.forEach(state::addEvent);
+            action.apply(playerID, state);
             state.tick();
             playerID = (playerID + 1) % state.getPlayerCount();
             moves++;

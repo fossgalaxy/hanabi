@@ -67,6 +67,9 @@ public class PlayCard implements Action {
             //game.getHand(playerID).setHasCard(slot, false);
         }
 
+        //update state history
+        game.addAction(playerID, this, events);
+
         return events;
     }
 

@@ -42,15 +42,6 @@ public class AgentPlayer implements Player {
         return policy.doMove(playerID, state);
     }
 
-    //@Override
-    public void sendMessage(GameEvent msg) {
-        assert state != null : "You didn't call setID before I got a message!";
-        assert msg != null : "You passed me a null message";
-
-        msg.apply(state, playerID);
-        state.addEvent(msg);
-    }
-
     @Override
     public void resolveTurn(int actor, Action action, List<GameEvent> events) {
         Objects.requireNonNull(state);

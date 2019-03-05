@@ -2,8 +2,11 @@ package com.fossgalaxy.games.fireworks.state;
 
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
+
 
 /**
  * The basic state of the game.
@@ -11,6 +14,8 @@ import java.util.*;
  * This keeps track of all the features of the game that we have learnt.
  */
 public class BasicState implements GameState {
+    private final Logger LOG = LoggerFactory.getLogger(BasicState.class);
+
     /**
      * The hand sizes for different numbers of players. A -1 in this list indicates that the requested size of game
      * is not permitted under the game rules.
@@ -66,7 +71,6 @@ public class BasicState implements GameState {
     /**
      * A history of the game from this agent's perspective.
      */
-    private final LinkedList<GameEvent> history;
     private final LinkedList<HistoryEntry> historyEntries;
 
     /**
@@ -109,9 +113,6 @@ public class BasicState implements GameState {
         this.information = state.information;
         this.lives = state.lives;
         this.movesLeft = state.movesLeft;
-
-        this.history = new LinkedList<>();
-        this.history.addAll(state.history);
 
         this.historyEntries = new LinkedList<>();
         this.historyEntries.addAll(state.historyEntries);
@@ -156,7 +157,6 @@ public class BasicState implements GameState {
         this.table = new EnumMap<>(CardColour.class);
         this.discard = new ArrayList<>();
         this.movesLeft = playerCount;
-        this.history = new LinkedList<>();
         this.historyEntries = new LinkedList<>();
 
         this.turnNumber = 0;
@@ -597,23 +597,20 @@ public class BasicState implements GameState {
     }
 
     /**
-     * Add an event to the game's history
-     *
-     * @param event the event to add
-     */
-    @Override
-    public void addEvent(GameEvent event) {
-        history.add(event);
-    }
-
-    /**
      * Return the history of events observed by this agent
      *
      * @return the list of events that have occurred in the game.
      */
     @Override
     public LinkedList<GameEvent> getHistory() {
-        return history;
+        LOG.warn("You should be using getActionHistory, getHistory will be removed!");
+
+        LinkedList<GameEvent> events = new LinkedList<>();
+        for (HistoryEntry entry : historyEntries){
+            events.addAll(entry.history);
+        }
+
+        return events;
     }
 
     @Override
@@ -621,8 +618,22 @@ public class BasicState implements GameState {
         return turnNumber;
     }
 
+    /**
+     * Update the game history with a new action.
+     *
+     * This must be invoked when new actions are received from the game engine - but this should be dealt with for you.
+     * When applying actions though action.apply, this method will be called for you.
+     *
+     * @param playerID the player who performed the action
+     * @param action the action that was performed
+     * @param effects the effects of the action
+     */
     public void addAction(int playerID, Action action, List<GameEvent> effects) {
         HistoryEntry entry = new HistoryEntry(playerID, action, effects);
         historyEntries.add(entry);
+    }
+
+    public List<HistoryEntry> getActionHistory(){
+        return Collections.unmodifiableList(historyEntries);
     }
 }

@@ -103,8 +103,7 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
             int agent = current.getAgent();
             Action action = current.getAction();
             if (action != null) {
-                List<GameEvent> events = action.apply(agent, state);
-                events.forEach(state::addEvent);
+                action.apply(agent, state);
                 state.tick();
             }
 

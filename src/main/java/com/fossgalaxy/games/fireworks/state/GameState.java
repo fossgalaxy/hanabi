@@ -220,16 +220,6 @@ public interface GameState extends Serializable {
     void tick();
 
     /**
-     * Old method for telling players about actions.
-     *
-     * This has been replaced by the new action-based approach.
-     *
-     * @param event the event to add to the history.
-     */
-    @Deprecated
-    void addEvent(GameEvent event);
-
-    /**
      * Return the game event history.
      *
      * The new history method should be used instead.
