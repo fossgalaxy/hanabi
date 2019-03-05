@@ -474,6 +474,11 @@ public class BasicState implements GameState {
         hand.setCard(slot, card);
     }
 
+    @Override
+    public int getMovesLeft(){
+        return movesLeft;
+    }
+
     /**
      * Update the number of information tokens in this state.
      *

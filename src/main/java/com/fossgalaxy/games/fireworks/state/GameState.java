@@ -45,6 +45,8 @@ public interface GameState extends Serializable {
 
     int getScore();
 
+    int getMovesLeft();
+
     int getStartingInfomation();
 
     int getStartingLives();
