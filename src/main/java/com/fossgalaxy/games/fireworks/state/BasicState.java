@@ -106,7 +106,7 @@ public class BasicState implements GameState {
      *
      * @param state the state to clone
      */
-    public BasicState(BasicState state) {
+    protected BasicState(BasicState state) {
         this.handSize = state.handSize;
         this.deck = new Deck(state.deck);
         this.discard = new ArrayList<>(state.discard);
