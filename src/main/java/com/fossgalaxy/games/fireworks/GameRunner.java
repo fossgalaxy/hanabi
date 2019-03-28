@@ -263,10 +263,17 @@ public class GameRunner {
         Random random = new Random();
         List<GameStats> results = new ArrayList<>();
         for(int players = 2; players <= 5; players++){
-            for(int gameNumber = 0; gameNumber < 1000; gameNumber++){
-                GameRunner runner = new GameRunner("IGGI2-" + gameNumber, players);
+            for(int gameNumber = 0; gameNumber < 10; gameNumber++){
+                GameRunner runner = new GameRunner("IGGI2-" + gameNumber, players, true);
+
+                int evalAgent = random.nextInt(players);
+
                 for(int i = 0; i < players; i++){
-                    runner.addPlayer(new AgentPlayer("IGGI2", AgentUtils.buildAgent("iggi2")));
+                    if (evalAgent == i) {
+                        runner.addPlayer(new AgentPlayer("eval", AgentUtils.buildAgent("pmctsND[iggi|iggi|iggi|iggi|iggi]")));
+                    } else{
+                        runner.addPlayer(new AgentPlayer("iggi", AgentUtils.buildAgent("iggi")));
+                    }
                 }
 
                 GameStats stats = runner.playGame(random.nextLong());
