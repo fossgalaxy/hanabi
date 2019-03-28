@@ -267,7 +267,7 @@ public class HatGuessing implements Agent {
 
 
     @Override
-    public void receiveID(int agentID) {
+    public void receiveID(int agentID, String[] names) {
         playerID = agentID;
     }
 

@@ -24,7 +24,10 @@ public class GameRunner {
     private static final int[] HAND_SIZE = {-1, -1, 5, 5, 4, 4};
     private final Logger logger = LoggerFactory.getLogger(GameRunner.class);
     private final String gameID;
+
     protected final Player[] players;
+    protected final String[] playerNames;
+
     protected final GameState state;
 
     private int nPlayers;
@@ -69,6 +72,7 @@ public class GameRunner {
 
     public GameRunner(String gameID, GameState state){
         this.players = new Player[state.getPlayerCount()];
+        this.playerNames = new String[state.getPlayerCount()];
         this.state = Objects.requireNonNull(state);
         this.nPlayers = 0;
         this.nextPlayer = 0;
@@ -86,6 +90,19 @@ public class GameRunner {
     public void addPlayer(Player player) {
         logger.info("player {} is {}", nPlayers, player);
         players[nPlayers++] = Objects.requireNonNull(player);
+    }
+
+    /**
+     * Add a named player.
+     *
+     * Player names will be revealed to all players at the start of a game.
+     *
+     * @param name the name of the player
+     * @param player the player object
+     */
+    public void addNamedPlayer(String name, Player player) {
+        addPlayer(player);
+        playerNames[nPlayers - 1] = name;
     }
 
     /**
@@ -110,7 +127,7 @@ public class GameRunner {
         //step 1: tell all players their IDs
         for (int i = 0; i < players.length; i++) {
             logger.info("player {} is {}", i, players[i]);
-            players[i].setID(i, players.length);
+            players[i].setID(i, players.length, playerNames);
         }
 
         state.init(seed);
