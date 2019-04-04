@@ -8,7 +8,7 @@ set -e
 
 VERSION=0.1.0
 SUBJECT=webpigeon
-JAR_FILE=fireworks-0.2.2-SNAPSHOT-jar-with-dependencies.jar
+JAR_FILE=fireworks-0.2.3-SNAPSHOT-jar-with-dependencies.jar
 JOB_FILE=mixed.job
 JOB_CHEAT_FILE=mixedCheat.job
 GENERATOR_CLASS=com.fossgalaxy.games.fireworks.cluster.GenerateGames
