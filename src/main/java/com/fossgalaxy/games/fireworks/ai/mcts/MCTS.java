@@ -25,6 +25,7 @@ public class MCTS implements Agent {
     public static final int DEFAULT_ROLLOUT_DEPTH = 18;
     public static final int DEFAULT_TREE_DEPTH_MUL = 1;
     public static final int NO_LIMIT = 100;
+    protected static final boolean OLD_UCT_BEHAVIOUR = false;
 
     protected final int roundLength;
     protected final int rolloutDepth;
