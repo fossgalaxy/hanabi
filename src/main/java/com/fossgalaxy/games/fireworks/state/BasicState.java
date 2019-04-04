@@ -524,6 +524,11 @@ public class BasicState implements GameState {
     public void setTableValue(CardColour colour, int value) {
         table.put(colour, value);
     }
+    
+    @Deprecated
+    public void tick() {
+    	LOG.warn("Tick is handled automaticlly, if you are applying events call actionTick instead");
+    }
 
     /**
      * Countdown clock used to keep track of remaining moves in the end game.
@@ -531,7 +536,7 @@ public class BasicState implements GameState {
      * This should be called any time the state is advanced.
      */
     @Override
-    public void tick() {
+    public void actionTick() {
         turnNumber++;
         if (!deck.hasCardsLeft()) {
             movesLeft--;

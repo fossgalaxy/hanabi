@@ -76,7 +76,6 @@ public class Individual {
                 Action myAction = possible.get(random.nextInt(possible.size()));
                 myAction.apply(playerId, forward);
             }
-            forward.tick();
             playerId = (playerId + 1) % state.getPlayerCount();
         }
 

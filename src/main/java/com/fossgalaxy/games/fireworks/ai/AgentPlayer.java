@@ -42,6 +42,17 @@ public class AgentPlayer implements Player {
         return policy.doMove(playerID, state);
     }
 
+    /**
+     * Resolve a turn.
+     * 
+     * We don't know enouph to apply the action (ie, the deck order and our own cards).
+     * Instead, we use the effects of the action (Events) to update our state.
+     * Because the action is never executed on our side, our tick counter won't update, so do that to.
+     * 
+     * @param actor the player who just made a move
+     * @param action the move the player made
+     * @param what we saw happen when the move was made
+     */
     @Override
     public void resolveTurn(int actor, Action action, List<GameEvent> events) {
         Objects.requireNonNull(state);
@@ -55,8 +66,8 @@ public class AgentPlayer implements Player {
             event.apply(state, this.playerID);
         }
 
-        // tick the game state
-        state.tick();
+        // tick the state
+        state.actionTick();
     }
 
     @Override

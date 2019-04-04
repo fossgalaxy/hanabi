@@ -50,6 +50,7 @@ public class TellColour implements Action {
         //handle history management for the state
         List<GameEvent> effects = Collections.singletonList(cardInformation);
         game.addAction(playerID, this, effects);
+        game.actionTick();
 
         return effects;
     }

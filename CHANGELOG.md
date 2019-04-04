@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changes
 - Agents no longer need to manage history when forwarding the state, this will be handled by the action
 - The copy constructor is no longer visible for BasicState, instead the getCopy method should be used
+- The game will handle calling tick for the agents, calling tick will now result in a warning message being printed.
 
 ### Fixes
 - Fix spelling of information in state interface

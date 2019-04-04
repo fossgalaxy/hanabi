@@ -212,12 +212,16 @@ public interface GameState extends Serializable {
      */
     void setTableValue(CardColour c, int nextValue);
 
+    @Deprecated
+    void tick();
+
     /**
      * Update state turn information.
      *
-     * This should be called when moves are made to ensure the game turn count and cards remaining remains in sync.
+     * This is called when an action is applied.
+     * If you are applying events manually, then call this when applying them.
      */
-    void tick();
+    void actionTick();
 
     /**
      * Return the game event history.

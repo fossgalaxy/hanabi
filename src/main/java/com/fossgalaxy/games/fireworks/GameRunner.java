@@ -206,7 +206,6 @@ public class GameRunner {
 
             while (!state.isGameOver()) {
                 try {
-                    state.tick();
                     writeState(state);
                     nextMove();
                 } catch (RulesViolation rv) {

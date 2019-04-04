@@ -7,8 +7,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class HistoryEntry {
+	
+	/**
+	 * The player that performed this action.
+	 * 
+	 * If the player ID is negative, the events occoured without a player making an action.
+	 * This should only happen at the start of the game to deal cards.
+	 */
     public final int playerID;
+    
+    /**
+     * The action the player made.
+     * 
+     * If this is null, the events are from the game rather than another player's action
+     * (ie, dealing cards at the start of the game).
+     * 
+     * JWR: yes, it's a little hacky - I couldn't think of a better way of doing it, I'm sorry.
+     */
     public final Action action;
+    
+    /**
+     * Our observations of the action.
+     */
     public final List<GameEvent> history;
 
     public HistoryEntry(int playerID, Action action, List<GameEvent> history){

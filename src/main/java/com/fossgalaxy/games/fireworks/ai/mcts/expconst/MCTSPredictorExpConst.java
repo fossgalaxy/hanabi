@@ -104,7 +104,6 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
             Action action = current.getAction();
             if (action != null) {
                 action.apply(agent, state);
-                state.tick();
             }
 
             if (iterationObject.isMyGo(agent)) {

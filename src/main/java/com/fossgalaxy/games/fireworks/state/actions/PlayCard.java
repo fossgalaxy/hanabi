@@ -69,6 +69,7 @@ public class PlayCard implements Action {
 
         //update state history
         game.addAction(playerID, this, events);
+        game.actionTick();
 
         return events;
     }

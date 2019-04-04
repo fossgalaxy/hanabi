@@ -56,6 +56,7 @@ public class TellValue implements Action {
         //update state history
         List<GameEvent> effects = Collections.singletonList(cardInformation);
         game.addAction(playerID, this, effects);
+        game.actionTick();
 
         return effects;
     }

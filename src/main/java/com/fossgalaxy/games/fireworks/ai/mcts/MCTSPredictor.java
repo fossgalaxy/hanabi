@@ -107,7 +107,6 @@ public class MCTSPredictor extends MCTS {
             Action action = current.getAction();
             if (action != null) {
                 action.apply(agent, state);
-                state.tick();
             }
 
             if (iterationObject.isMyGo(agent)) {
