@@ -235,9 +235,6 @@ public class MCTS implements Agent {
     }
 
     protected int rollout(GameState state, MCTSNode current) {
-
-    	System.out.println(current);
-    	
         int playerID = (current.getAgent() + 1) % state.getPlayerCount();
         int moves = 0;
 
