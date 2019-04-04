@@ -111,7 +111,7 @@ public class MCTS implements Agent {
             deck.shuffle();
 
             MCTSNode current = select(root, currentState, iterationObject);
-            int score = rollout(currentState, agentID, current);
+            int score = rollout(currentState, current);
             current.backup(score);
             if(calcTree){
                 System.err.println(root.printD3());
@@ -234,9 +234,11 @@ public class MCTS implements Agent {
         return listAction.get(0);
     }
 
-    protected int rollout(GameState state, final int agentID, MCTSNode current) {
+    protected int rollout(GameState state, MCTSNode current) {
 
-        int playerID = agentID;
+    	System.out.println(current);
+    	
+        int playerID = (current.getAgent() + 1) % state.getPlayerCount();
         int moves = 0;
 
         while (!state.isGameOver() && moves < rolloutDepth) {
