@@ -129,13 +129,16 @@ public class MCTSExpConst implements Agent {
     protected MCTSNode select(MCTSNode root, GameState state, IterationObject iterationObject) {
         MCTSNode current = root;
         int treeDepth = calculateTreeDepthLimit(state);
-        while (!state.isGameOver() && current.getDepth() < treeDepth) {
+        boolean expanded = false;
+        
+        while (!state.isGameOver() && current.getDepth() < treeDepth && !expanded) {
             MCTSNode next;
             if (current.fullyExpanded(state)) {
                 next = current.getUCTNode(state);
             } else {
                 next = expand(current, state);
-                return next;
+                expanded = true;
+                //return next;
             }
             if (next == null) {
                 //XXX if all follow on states explored so far are null, we are now a leaf node

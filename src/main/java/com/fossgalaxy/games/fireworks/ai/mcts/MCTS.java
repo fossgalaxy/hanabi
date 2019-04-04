@@ -144,16 +144,20 @@ public class MCTS implements Agent {
     protected MCTSNode select(MCTSNode root, GameState state, IterationObject iterationObject) {
         MCTSNode current = root;
         int treeDepth = calculateTreeDepthLimit(state);
-        while (!state.isGameOver() && current.getDepth() < treeDepth) {
+        boolean expandedNode = false;
+        
+        while (!state.isGameOver() && current.getDepth() < treeDepth && !expandedNode) {
             MCTSNode next;
             if (current.fullyExpanded(state)) {
                 next = current.getUCTNode(state);
             } else {
                 next = expand(current, state);
-                return next;
+                expandedNode = true;
             }
+            
             if (next == null) {
                 //XXX if all follow on states explored so far are null, we are now a leaf node
+            	//ok to early return here - we will have applied current last time round the loop!
                 return current;
             }
             current = next;
