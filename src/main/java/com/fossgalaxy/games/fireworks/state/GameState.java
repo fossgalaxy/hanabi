@@ -241,4 +241,5 @@ public interface GameState extends Serializable {
      * @param eventList the resulting events from out perspective.
      */
     void addAction(int playerID, Action action, List<GameEvent> eventList);
+    List<HistoryEntry> getActionHistory(); 
 }
