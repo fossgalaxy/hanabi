@@ -11,7 +11,7 @@ set -e
 VERSION=1.0.0
 SUBJECT=webpigeon
 
-JAR_FILE=fireworks-0.2.2-SNAPSHOT-jar-with-dependencies.jar
+JAR_FILE=fireworks-0.2.3-SNAPSHOT-jar-with-dependencies.jar
 BASE_GENERATOR_PACKAGE=com.fossgalaxy.games.fireworks.cluster
 BASIC_GENERATOR=GenerateGames
 RUNNER_CLASS=com.fossgalaxy.games.fireworks.cluster.MixedAgentGameSingle
