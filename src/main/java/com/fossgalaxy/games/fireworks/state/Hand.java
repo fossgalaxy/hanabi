@@ -9,7 +9,7 @@ public interface Hand extends Serializable {
     /**
      * Initialise all information about the slots.
      * <p>
-     * This should reset any known infomation for any slot in the hand.
+     * This should reset any known information for any slot in the hand.
      */
     void init();
 

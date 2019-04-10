@@ -25,6 +25,7 @@ public class MCTS implements Agent {
     public static final int DEFAULT_ROLLOUT_DEPTH = 18;
     public static final int DEFAULT_TREE_DEPTH_MUL = 1;
     public static final int NO_LIMIT = 100;
+    protected static final boolean OLD_UCT_BEHAVIOUR = false;
 
     protected final int roundLength;
     protected final int rolloutDepth;
@@ -111,7 +112,7 @@ public class MCTS implements Agent {
             deck.shuffle();
 
             MCTSNode current = select(root, currentState, iterationObject);
-            int score = rollout(currentState, agentID, current);
+            int score = rollout(currentState, current);
             current.backup(score);
             if(calcTree){
                 System.err.println(root.printD3());
@@ -144,16 +145,20 @@ public class MCTS implements Agent {
     protected MCTSNode select(MCTSNode root, GameState state, IterationObject iterationObject) {
         MCTSNode current = root;
         int treeDepth = calculateTreeDepthLimit(state);
-        while (!state.isGameOver() && current.getDepth() < treeDepth) {
+        boolean expandedNode = false;
+        
+        while (!state.isGameOver() && current.getDepth() < treeDepth && !expandedNode) {
             MCTSNode next;
             if (current.fullyExpanded(state)) {
                 next = current.getUCTNode(state);
             } else {
                 next = expand(current, state);
-                return next;
+                expandedNode = true;
             }
+            
             if (next == null) {
                 //XXX if all follow on states explored so far are null, we are now a leaf node
+            	//ok to early return here - we will have applied current last time round the loop!
                 return current;
             }
             current = next;
@@ -164,9 +169,7 @@ public class MCTS implements Agent {
 
             Action action = current.getAction();
             if (action != null) {
-                List<GameEvent> events = action.apply(agent, state);
-                events.forEach(state::addEvent);
-                state.tick();
+                action.apply(agent, state);
             }
 
             if (iterationObject.isMyGo(agent)) {
@@ -236,16 +239,13 @@ public class MCTS implements Agent {
         return listAction.get(0);
     }
 
-    protected int rollout(GameState state, final int agentID, MCTSNode current) {
-
-        int playerID = agentID;
+    protected int rollout(GameState state, MCTSNode current) {
+        int playerID = (current.getAgent() + 1) % state.getPlayerCount();
         int moves = 0;
 
         while (!state.isGameOver() && moves < rolloutDepth) {
             Action action = selectActionForRollout(state, playerID);
-            List<GameEvent> events = action.apply(playerID, state);
-            events.forEach(state::addEvent);
-            state.tick();
+            action.apply(playerID, state);
             playerID = (playerID + 1) % state.getPlayerCount();
             moves++;
         }

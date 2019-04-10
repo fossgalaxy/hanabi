@@ -6,6 +6,7 @@ import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -41,13 +42,32 @@ public class AgentPlayer implements Player {
         return policy.doMove(playerID, state);
     }
 
+    /**
+     * Resolve a turn.
+     * 
+     * We don't know enouph to apply the action (ie, the deck order and our own cards).
+     * Instead, we use the effects of the action (Events) to update our state.
+     * Because the action is never executed on our side, our tick counter won't update, so do that to.
+     * 
+     * @param actor the player who just made a move
+     * @param action the move the player made
+     * @param what we saw happen when the move was made
+     */
     @Override
-    public void sendMessage(GameEvent msg) {
-        assert state != null : "You didn't call setID before I got a message!";
-        assert msg != null : "You passed me a null message";
+    public void resolveTurn(int actor, Action action, List<GameEvent> events) {
+        Objects.requireNonNull(state);
+        Objects.requireNonNull(events);
 
-        msg.apply(state, playerID);
-        state.addEvent(msg);
+        // add the action to the history
+        state.addAction(actor, action, events);
+
+        // apply the effects of the actions
+        for (GameEvent event : events){
+            event.apply(state, this.playerID);
+        }
+
+        // tick the state
+        state.actionTick();
     }
 
     @Override

@@ -56,8 +56,7 @@ public class TestPlayUniquePossibleCard {
     @Test
     public void testTellExactlyOneAndTheyPlayIt(){
         TellValue tellValue = new TellValue(1, 1);
-        List<GameEvent> gameEvents = tellValue.apply(0, state);
-        gameEvents.forEach(state::addEvent);
+        tellValue.apply(0, state);
 
 
         assertTrue(instance.canFire(1, state));
@@ -71,8 +70,7 @@ public class TestPlayUniquePossibleCard {
     @Test
     public void testTellMoreThanOneCardAndTheyIgnoreIt(){
         TellColour tellColour = new TellColour(1, CardColour.RED);
-        List<GameEvent> gameEvents = tellColour.apply(0, state);
-        gameEvents.forEach(state::addEvent);
+        tellColour.apply(0, state);
 
         assertFalse(instance.canFire(1, state));
     }
@@ -85,17 +83,18 @@ public class TestPlayUniquePossibleCard {
     @Test
     public void testTellTwicePlayTwice(){
         TellValue tellValue = new TellValue(2, 1);
-        tellValue.apply(0, state).forEach(state::addEvent);
-        new TellValue(2, 2).apply(1, state).forEach(state::addEvent);
+
+        tellValue.apply(0, state);
+        new TellValue(2, 2).apply(1, state);
 
         assertTrue(instance.canFire(2, state));
         Action action = instance.execute(2, state);
         assertNotNull(action);
         assertEquals(PlayCard.class, action.getClass());
 
-        new PlayCard(3).apply(2, state).forEach(state::addEvent);
-        new TellColour(1, CardColour.RED).apply(0, state).forEach(state::addEvent);
-        new TellColour(2, CardColour.GREEN).apply(1, state).forEach(state::addEvent);
+        new PlayCard(3).apply(2, state);
+        new TellColour(1, CardColour.RED);
+        new TellColour(2, CardColour.GREEN);
 
         assertTrue(instance.canFire(2, state));
         action = instance.execute(2, state);

@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A basic runner for the game of Hanabi.
@@ -114,19 +115,29 @@ public class GameRunner {
 
         state.init(seed);
 
-        //let the players know the game has started and the starting state
-        send(new GameInformation(nPlayers, HAND_SIZE[nPlayers], state.getInfomation(), state.getLives()));
+        //keep track of the messages that should be sent as part of the game setup
+        List<GameEvent> initEvents = new ArrayList<>();
 
-        //tell players about their hands
+        // tell the players the rules
+        GameEvent gameInfo = new GameInformation(nPlayers, HAND_SIZE[nPlayers], state.getInfomation(), state.getLives());
+        initEvents.add(gameInfo);
+
+        //tell players about the initial state
         for (int player = 0; player < players.length; player++) {
             Hand hand = state.getHand(player);
 
             for (int slot = 0; slot < hand.getSize(); slot++) {
                 Card cardInSlot = hand.getCard(slot);
-                send(new CardDrawn(player, slot, cardInSlot.colour, cardInSlot.value));
-                send(new CardReceived(player, slot, state.getDeck().hasCardsLeft()));
+
+                GameEvent cardDrawn = new CardDrawn(player, slot, cardInSlot.colour, cardInSlot.value, 0);
+                GameEvent cardRecv = new CardReceived(player, slot, state.getDeck().hasCardsLeft(), 0);
+                initEvents.add(cardDrawn);
+                initEvents.add(cardRecv);
             }
         }
+
+        //dispatch the events to the players
+        notifyAction(-2, null, initEvents);
 
         long endTime = getTick();
         logger.info("Game init complete: took {} ms", endTime - startTime);
@@ -169,8 +180,10 @@ public class GameRunner {
         //perform the action and get the effects
         logger.info("player {} made move {} as turn {}", nextPlayer, action, moves);
         moves++;
+
+
         Collection<GameEvent> events = action.apply(nextPlayer, state);
-        events.forEach(this::send);
+        notifyAction(nextPlayer, action, events);
 
         //make sure it's the next player's turn
         nextPlayer = (nextPlayer + 1) % players.length;
@@ -193,7 +206,6 @@ public class GameRunner {
 
             while (!state.isGameOver()) {
                 try {
-                    state.tick();
                     writeState(state);
                     nextMove();
                 } catch (RulesViolation rv) {
@@ -215,24 +227,52 @@ public class GameRunner {
 
     }
 
+    /**
+     * Tell the players about an action that has occurred
+     *
+     * @param actor the player who performed the action
+     * @param action the action the player performed
+     * @param events the events that resulted from that action
+     */
+    protected void notifyAction(int actor, Action action, Collection<GameEvent> events) {
+
+        for (int i = 0; i < players.length; i++) {
+            int currPlayer = i; // use of lambda expression must be effectively final
+
+            // filter events to just those that are visible to the player
+            List<GameEvent> visibleEvents = events.stream().filter(e -> e.isVisibleTo(currPlayer)).collect(Collectors.toList());
+            players[i].resolveTurn(actor, action, visibleEvents);
+
+            logger.debug("for {}, sent {} to {}", action, visibleEvents, currPlayer);
+        }
+
+    }
+
     //send messages as soon as they are available
-    protected void send(GameEvent event) {
+/*    protected void send(GameEvent event) {
         logger.debug("game sent event: {}", event);
         for (int i = 0; i < players.length; i++) {
             if (event.isVisibleTo(i)) {
                 players[i].sendMessage(event);
             }
         }
-    }
+    }*/
 
     public static void main(String[] args) {
         Random random = new Random();
         List<GameStats> results = new ArrayList<>();
         for(int players = 2; players <= 5; players++){
-            for(int gameNumber = 0; gameNumber < 1000; gameNumber++){
-                GameRunner runner = new GameRunner("IGGI2-" + gameNumber, players);
+            for(int gameNumber = 0; gameNumber < 10; gameNumber++){
+                GameRunner runner = new GameRunner("IGGI2-" + gameNumber, players, true);
+
+                int evalAgent = random.nextInt(players);
+
                 for(int i = 0; i < players; i++){
-                    runner.addPlayer(new AgentPlayer("IGGI2", AgentUtils.buildAgent("iggi2")));
+                    if (evalAgent == i) {
+                        runner.addPlayer(new AgentPlayer("eval", AgentUtils.buildAgent("pmctsND[iggi|iggi|iggi|iggi|iggi]")));
+                    } else{
+                        runner.addPlayer(new AgentPlayer("iggi", AgentUtils.buildAgent("iggi")));
+                    }
                 }
 
                 GameStats stats = runner.playGame(random.nextLong());

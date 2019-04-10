@@ -100,5 +100,5 @@ for i in `seq 1 $MAX_JOB_SIZE $ARG_COUNT`;
     #echo "[OK] job file submitted: $QLOG"
 done
 
-qsub -N Mail_Hanabi_Run -hold_j $JOB_NAME mail.job
+#qsub -N Mail_Hanabi_Run -hold_j $JOB_NAME mail.job
 #qsub -N Mail_Hanabi_Cheat -hold_j ${JOB_NAME}_Cheat mail.job

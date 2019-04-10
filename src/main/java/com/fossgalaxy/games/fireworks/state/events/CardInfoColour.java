@@ -12,8 +12,8 @@ public class CardInfoColour extends CardInfo {
 
     private final CardColour colour;
 
-    public CardInfoColour(int performer, int playerId, CardColour colour, Collection<Integer> slotsList) {
-        super(MessageType.CARD_INFO_COLOUR, playerId, performer, slotsList);
+    public CardInfoColour(int performer, int playerId, CardColour colour, Collection<Integer> slotsList, int turnNumber) {
+        super(MessageType.CARD_INFO_COLOUR, playerId, performer, slotsList, turnNumber);
         this.colour = colour;
     }
 

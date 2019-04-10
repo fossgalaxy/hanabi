@@ -2,6 +2,9 @@ package com.fossgalaxy.games.fireworks.state;
 
 import java.util.*;
 
+/**
+ * A hand that 'remembers' negative information.
+ */
 public class NegativeHand extends BasicHand {
 
     //what the agent can infer about it's hand (based on negative information)

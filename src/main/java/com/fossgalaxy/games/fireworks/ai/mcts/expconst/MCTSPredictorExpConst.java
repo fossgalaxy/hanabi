@@ -73,8 +73,9 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
     protected MCTSNode select(MCTSNode root, GameState state, IterationObject iterationObject) {
         MCTSNode current = root;
         int treeDepth = calculateTreeDepthLimit(state);
+        boolean expanded = false;
 
-        while (!state.isGameOver() && current.getDepth() < treeDepth) {
+        while (!state.isGameOver() && current.getDepth() < treeDepth && !expanded) {
             MCTSNode next;
             if (current.fullyExpanded(state)) {
                 next = current.getUCTNode(state);
@@ -89,7 +90,8 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
 
                 if (numChildren != current.getChildSize()) {
                     // It is new
-                    return next;
+                	expanded = true;
+                    //return next;
                 }
             }
             // Forward the state
@@ -103,9 +105,7 @@ public class MCTSPredictorExpConst extends MCTSExpConst {
             int agent = current.getAgent();
             Action action = current.getAction();
             if (action != null) {
-                List<GameEvent> events = action.apply(agent, state);
-                events.forEach(state::addEvent);
-                state.tick();
+                action.apply(agent, state);
             }
 
             if (iterationObject.isMyGo(agent)) {

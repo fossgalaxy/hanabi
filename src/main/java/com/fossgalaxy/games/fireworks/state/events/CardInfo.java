@@ -10,8 +10,8 @@ public abstract class CardInfo extends GameEvent {
     protected final int playerTelling;
     protected final Integer[] slots;
 
-    public CardInfo(MessageType id, int playerTold, int playerTelling, Collection<Integer> slotsList) {
-        super(id);
+    public CardInfo(MessageType id, int playerTold, int playerTelling, Collection<Integer> slotsList, int turnNumber) {
+        super(id, turnNumber);
         this.playerTold = playerTold;
         this.playerTelling = playerTelling;
 

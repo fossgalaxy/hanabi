@@ -9,6 +9,7 @@ import java.util.Random;
 /**
  * Created by piers on 08/11/16.
  */
+@Deprecated
 public class RiskyRunner {
 
     public static final String IGGI_RISKY = "iggi_risky";

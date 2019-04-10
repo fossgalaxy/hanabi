@@ -24,6 +24,21 @@ public class IGGIFactory {
     }
 
     /**
+     * This bot does nothing but tell and discard cards at random.
+     *
+     * This agent is always guaranteed to return a move, but will never play cards.
+     *
+     * @return the old default policy for the production rule agent.
+     */
+    @AgentBuilderStatic("forgiving")
+    public static Agent buildForgivingPolicy(){
+        ProductionRuleAgent pra = new ProductionRuleAgent();
+        pra.addRule(new TellRandomly());
+        pra.addRule(new DiscardRandomly());
+        return pra;
+    }
+
+    /**
      * Cautious but helpful bot.
      * <p>
      * This policy will only play cards it is sure about, it will discard cards it knows are useless

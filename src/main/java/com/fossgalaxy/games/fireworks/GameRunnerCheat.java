@@ -1,8 +1,13 @@
 package com.fossgalaxy.games.fireworks;
 
+import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.CardDrawn;
 import com.fossgalaxy.games.fireworks.state.events.CheatEvent;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Game runner that allows the agents to know what cards are in their hands.
@@ -14,24 +19,30 @@ public class GameRunnerCheat extends GameRunner {
     }
 
     /**
-     * When a card is drawn, all agents get told what the card was.
+     * Tell the players about an action that has occurred
      *
-     * This allows the agents to know exactly what cards are in their own hand and tells the other agents about it.
-     * This is implemented as the equivalent of a free tell action.
-     *
-     * @param event the event to send to the agents.
+     * @param actor the player who performed the action
+     * @param action the action the player performed
+     * @param events the events that resulted from that action
      */
-    @Override
-    protected void send(GameEvent event) {
+    protected void notifyAction(int actor, Action action, Collection<GameEvent> events) {
+
         for (int i = 0; i < players.length; i++) {
-            if (event.isVisibleTo(i)) {
-                players[i].sendMessage(event);
+            // filter events to just those that are visible to the player
+            List<GameEvent> visibleEvents = new ArrayList<>();
+            for (GameEvent event : events) {
+                if (event.isVisibleTo(i)) {
+                    visibleEvents.add(event);
+                }
+
+                if (event instanceof CardDrawn) {
+                    visibleEvents.add(new CheatEvent(i, state.getHand(i), event.getTurnNumber()));
+                }
             }
 
-            if (event instanceof CardDrawn) {
-                send(new CheatEvent(i, state.getHand(i)));
-            }
+            players[i].resolveTurn(actor, action, visibleEvents);
         }
+
     }
 
 }

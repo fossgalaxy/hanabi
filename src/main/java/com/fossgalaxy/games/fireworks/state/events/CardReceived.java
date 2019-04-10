@@ -11,8 +11,8 @@ public class CardReceived extends GameEvent {
     private final int slotId;
     private final boolean received;
 
-    public CardReceived(int playerId, int slotId, boolean received) {
-        super(MessageType.CARD_RECEIVED);
+    public CardReceived(int playerId, int slotId, boolean received, int turnNumber) {
+        super(MessageType.CARD_RECEIVED, turnNumber);
         this.playerId = playerId;
         this.slotId = slotId;
         this.received = received;
@@ -40,5 +40,14 @@ public class CardReceived extends GameEvent {
     @Override
     public boolean isVisibleTo(int playerID) {
         return playerID == this.playerId;
+    }
+
+    @Override
+    public String toString(){
+        if (received) {
+            return String.format("player %d was informed that slot %d contains a card", playerId, slotId);
+        } else {
+            return String.format("player %d was informed that slot %d is now empty (no cards left!)", playerId, slotId);
+        }
     }
 }

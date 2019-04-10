@@ -11,6 +11,7 @@ import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 import com.fossgalaxy.games.fireworks.state.events.MessageType;
 
 import javax.swing.*;
+import java.util.List;
 
 /**
  * Created by webpigeon on 11/04/17.
@@ -67,9 +68,13 @@ public class UIPlayer extends AgentPlayer {
     }
 
     @Override
-    public void sendMessage(GameEvent msg) {
-        super.sendMessage(msg);
+    public void resolveTurn(int actor, Action action, List<GameEvent> events) {
+        super.resolveTurn(actor, action, events);
 
+        events.forEach(this::sendMessage);
+    }
+
+    public void sendMessage(GameEvent msg) {
         if (view != null) {
 
             if (msg.getEvent().equals(MessageType.CARD_INFO_COLOUR)) {

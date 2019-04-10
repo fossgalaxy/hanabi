@@ -18,7 +18,7 @@ public class TestCheatEvent {
     public void testPlayerMatches() {
         int playerID = 0;
         Hand hand = mock(Hand.class);
-        CheatEvent event = new CheatEvent(playerID, hand);
+        CheatEvent event = new CheatEvent(playerID, hand, GameEvent.UNKNOWN_TURN);
 
         assertEquals(true, event.isVisibleTo(playerID));
         assertEquals(false, event.isVisibleTo(1));
@@ -28,7 +28,7 @@ public class TestCheatEvent {
     public void testNullHandCausesException() {
         int playerID = 0;
         Hand hand = null;
-        new CheatEvent(playerID, hand);
+        new CheatEvent(playerID, hand, GameEvent.UNKNOWN_TURN);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestCheatEvent {
         when(handToClone.getCard(1)).thenReturn(redTwo);
         when(handToClone.getCard(2)).thenReturn(blueThree);
 
-        CheatEvent event = new CheatEvent(playerID, handToClone);
+        CheatEvent event = new CheatEvent(playerID, handToClone, GameEvent.UNKNOWN_TURN);
 
         //generate a mocked out state
         Hand handToReplace = mock(Hand.class);

@@ -24,7 +24,7 @@ public class TestCardDiscarded {
     @Test
     public void testDiscardCard(){
         Card card = state.getHand(0).getCard(0);
-        CardDiscarded cardDiscarded = new CardDiscarded(0, 0, card.colour, card.value);
+        CardDiscarded cardDiscarded = new CardDiscarded(0, 0, card.colour, card.value, GameEvent.UNKNOWN_TURN);
 
         cardDiscarded.apply(state, 0);
 

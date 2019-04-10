@@ -40,7 +40,7 @@ class FirstMoveGameRunner extends GameRunner {
     @Override
     public GameStats playGame(Long seed) {
         init(seed);
-        state.tick();
+        //state.tick();
         nextMove();
 
         return null;

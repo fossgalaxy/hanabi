@@ -9,6 +9,7 @@ import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TellValue implements Action {
@@ -22,6 +23,8 @@ public class TellValue implements Action {
 
     @Override
     public List<GameEvent> apply(int playerID, GameState game) {
+
+        int turnNumber = game.getTurnNumber();
 
         Hand hand = game.getHand(player);
         List<Integer> slots = new ArrayList<>();
@@ -48,8 +51,14 @@ public class TellValue implements Action {
         game.setInformation(information - 1);
         hand.setKnownValue(value, slots.toArray(new Integer[slots.size()]));
 
-        GameEvent cardInformation = new CardInfoValue(playerID, player, value, slots);
-        return Arrays.asList(cardInformation);
+        GameEvent cardInformation = new CardInfoValue(playerID, player, value, slots, turnNumber);
+
+        //update state history
+        List<GameEvent> effects = Collections.singletonList(cardInformation);
+        game.addAction(playerID, this, effects);
+        game.actionTick();
+
+        return effects;
     }
 
     @Override

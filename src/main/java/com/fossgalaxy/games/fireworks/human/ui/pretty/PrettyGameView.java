@@ -262,7 +262,7 @@ public class PrettyGameView extends GameView {
     public void animateTell(CardInfoValue valueTold) {
         super.animateTell(valueTold);
 
-        CardHinter hinter = hinters.get(valueTold.getPlayerId());
+        CardHinter hinter = hinters.get(valueTold.getPlayerTold());
         hinter.hoverValue2(valueTold.getValue());
         setTurnHint(valueTold.getPerformer(), true);
         repaint();
@@ -282,7 +282,7 @@ public class PrettyGameView extends GameView {
     public void animateTell(CardInfoColour colourTold) {
         super.animateTell(colourTold);
 
-        CardHinter hinter = hinters.get(colourTold.getPlayerId());
+        CardHinter hinter = hinters.get(colourTold.getPlayerTold());
         hinter.hoverColour2(colourTold.getColour());
         setTurnHint(colourTold.getPerformer(), true);
         repaint();

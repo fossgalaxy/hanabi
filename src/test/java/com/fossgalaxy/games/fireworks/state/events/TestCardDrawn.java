@@ -23,7 +23,7 @@ public class TestCardDrawn {
 
     @Test
     public void testCardDrawn(){
-        CardDrawn cardDrawn = new CardDrawn(0, 0, CardColour.BLUE, 1);
+        CardDrawn cardDrawn = new CardDrawn(0, 0, CardColour.BLUE, 1, GameEvent.UNKNOWN_TURN);
         cardDrawn.apply(state);
 
         assertEquals(new Card(1, CardColour.BLUE), state.getHand(0).getCard(0));

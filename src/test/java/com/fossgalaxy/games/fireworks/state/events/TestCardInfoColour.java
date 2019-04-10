@@ -45,7 +45,7 @@ public class TestCardInfoColour {
         CardInfoColour cardInfoColour = new CardInfoColour(performer, playerId, colour, slots);
 
         assertEquals(performer, cardInfoColour.getPerformer());
-        assertEquals(playerId, cardInfoColour.getPlayerId());
+        assertEquals(playerId, cardInfoColour.getPlayerTold());
         assertEquals(colour, cardInfoColour.getColour());
         assertEquals(true, Arrays.equals(slots, cardInfoColour.getSlots()));
     }

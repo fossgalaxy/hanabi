@@ -19,6 +19,11 @@ public class NoLifeState extends BasicState {
 
 
     @Override
+    public GameState getCopy() {
+        return new NoLifeState(this);
+    }
+
+    @Override
     public int getScore() {
 
         if (getLives() == 0) {

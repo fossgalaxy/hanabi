@@ -11,6 +11,7 @@ import java.util.Random;
  * <p>
  * This runner paired with
  */
+@Deprecated
 public class MixedAgentGame {
 
     //utility class - no instances required.

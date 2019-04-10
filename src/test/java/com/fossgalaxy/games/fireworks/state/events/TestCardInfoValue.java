@@ -44,7 +44,7 @@ public class TestCardInfoValue {
         CardInfoValue cardInfoValue = new CardInfoValue(performer, playerId, value, slots);
 
         assertEquals(performer, cardInfoValue.getPerformer());
-        assertEquals(playerId, cardInfoValue.getPlayerId());
+        assertEquals(playerId, cardInfoValue.getPlayerTold());
         assertEquals(value, cardInfoValue.getValue());
         assertEquals(true, Arrays.equals(slots, cardInfoValue.getSlots()));
     }

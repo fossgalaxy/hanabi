@@ -4,9 +4,7 @@ import com.fossgalaxy.games.fireworks.state.*;
 import com.fossgalaxy.games.fireworks.state.events.CardInfoColour;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class TellColour implements Action {
     public final int player;
@@ -21,6 +19,7 @@ public class TellColour implements Action {
     public List<GameEvent> apply(int playerID, GameState game) {
 
         Hand hand = game.getHand(player);
+        int turnNumber = game.getTurnNumber() + 1;
 
         List<Integer> slots = new ArrayList<>();
         for (int i = 0; i < hand.getSize(); i++) {
@@ -46,8 +45,14 @@ public class TellColour implements Action {
         game.setInformation(information - 1);
         hand.setKnownColour(colour, slots.toArray(new Integer[slots.size()]));
 
-        GameEvent cardInformation = new CardInfoColour(playerID, player, colour, slots);
-        return Arrays.asList(cardInformation);
+        GameEvent cardInformation = new CardInfoColour(playerID, player, colour, slots, turnNumber);
+
+        //handle history management for the state
+        List<GameEvent> effects = Collections.singletonList(cardInformation);
+        game.addAction(playerID, this, effects);
+        game.actionTick();
+
+        return effects;
     }
 
     @Override

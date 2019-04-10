@@ -4,7 +4,9 @@ package com.fossgalaxy.games.fireworks.state;
 import java.util.Arrays;
 
 /**
- * Created by webpigeon on 18/10/16.
+ * A hand that keeps track of the order in which cards were drawn.
+ *
+ * This enables moves such as, "tell about oldest" and "discard oldest"
  */
 public class TimedHand extends NegativeHand {
     private int[] time;
