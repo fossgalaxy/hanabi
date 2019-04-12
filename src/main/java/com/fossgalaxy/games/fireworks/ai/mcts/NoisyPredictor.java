@@ -41,8 +41,8 @@ public class NoisyPredictor implements Agent {
     }
 
     @Override
-    public void receiveID(int agentID) {
-        policy.receiveID(agentID);
+    public void receiveID(int agentID, String[] names) {
+        policy.receiveID(agentID, names);
     }
 
     @Override

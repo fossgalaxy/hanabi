@@ -32,6 +32,11 @@ public interface Agent {
      *
      * @param agentID this agent's ID.
      */
+    default void receiveID(int agentID, String[] names) {
+        receiveID(agentID);
+    }
+
+    @Deprecated
     default void receiveID(int agentID) {
 
     }

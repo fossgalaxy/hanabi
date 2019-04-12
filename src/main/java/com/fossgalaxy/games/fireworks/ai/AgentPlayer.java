@@ -71,13 +71,19 @@ public class AgentPlayer implements Player {
     }
 
     @Override
-    public void setID(int id, int nPlayers) {
+    public void setID(int id, int nPlayers, String[] names) {
         assert state == null;
         assert playerID == -1;
 
         this.playerID = id;
         this.state = new BasicState(nPlayers);
-        policy.receiveID(id);
+        policy.receiveID(id, names);
+    }
+
+    @Override
+    public void setID(int id, int nPlayers) {
+        String[] names = new String[nPlayers];
+        setID(id, nPlayers, names);
     }
 
     @Override

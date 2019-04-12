@@ -49,6 +49,10 @@ public interface Player {
      */
     void setID(int id, int nPlayers);
 
+    default void setID(int id, int nPlayers, String[] playerNames){
+        setID(id, nPlayers);
+    }
+
     String getName();
 
 
