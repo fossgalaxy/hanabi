@@ -31,6 +31,7 @@ public interface Agent {
      * This indicates that the game has started.
      *
      * @param agentID this agent's ID.
+     * @param names the names of the other agents we are playing with
      */
     default void receiveID(int agentID, String[] names) {
         receiveID(agentID);

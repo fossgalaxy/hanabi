@@ -43,6 +43,7 @@ public class MCTSPredictorWorlds extends MCTSPredictorExpConst {
      * @param iterationBudget the total number of iterations to use
      * @param determinsations the number of worlds to explore
      * @param expConst the exploration constant to use for the search
+     * @param agents the agents we are playing with
      */
     @AgentConstructor(App.PREDICTOR_MCTS+"Worlds")
     @Parameter(id=3, func="parseAgents")

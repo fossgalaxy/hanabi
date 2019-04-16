@@ -45,6 +45,7 @@ public class MCTSPredictorFixedDet extends MCTSPredictorExpConst {
      * @param iterationBudget the total number of iterations to use
      * @param determinsations the number of worlds to explore
      * @param expConst the exploration constant to use for the search
+     * @param agents the agents we are playing with
      */
     @AgentConstructor(App.PREDICTOR_MCTS+"Fixed")
     @Parameter(id=3, func="parseAgents")
@@ -61,6 +62,7 @@ public class MCTSPredictorFixedDet extends MCTSPredictorExpConst {
      *
      * @param iterationBudget the total number of iterations to use
      * @param determinsations the number of worlds to explore
+     * @param agents the agents we are playing with
      */
     public MCTSPredictorFixedDet(int iterationBudget, int determinsations, Agent[] agents) {
         this(iterationBudget, determinsations, MCTSNode.DEFAULT_EXP_CONST, agents);
