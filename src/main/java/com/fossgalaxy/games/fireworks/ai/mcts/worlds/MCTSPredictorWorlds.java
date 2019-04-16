@@ -5,7 +5,6 @@ import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.ai.iggi.Utils;
 import com.fossgalaxy.games.fireworks.ai.mcts.IterationObject;
 import com.fossgalaxy.games.fireworks.ai.mcts.MCTSNode;
-import com.fossgalaxy.games.fireworks.ai.mcts.expconst.MCTSFixedDet;
 import com.fossgalaxy.games.fireworks.ai.mcts.expconst.MCTSPredictorExpConst;
 import com.fossgalaxy.games.fireworks.ai.rule.logic.DeckUtils;
 import com.fossgalaxy.games.fireworks.annotations.AgentBuilderStatic;

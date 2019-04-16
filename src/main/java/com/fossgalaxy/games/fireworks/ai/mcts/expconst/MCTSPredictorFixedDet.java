@@ -1,11 +1,17 @@
 package com.fossgalaxy.games.fireworks.ai.mcts.expconst;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fossgalaxy.games.fireworks.App;
 import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.ai.iggi.Utils;
 import com.fossgalaxy.games.fireworks.ai.mcts.IterationObject;
 import com.fossgalaxy.games.fireworks.ai.mcts.MCTSNode;
-import com.fossgalaxy.games.fireworks.ai.mcts.MCTSPredictor;
 import com.fossgalaxy.games.fireworks.ai.rule.logic.DeckUtils;
 import com.fossgalaxy.games.fireworks.annotations.AgentBuilderStatic;
 import com.fossgalaxy.games.fireworks.annotations.AgentConstructor;
@@ -16,13 +22,6 @@ import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.Hand;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * Created by webpigeon on 14/08/17.

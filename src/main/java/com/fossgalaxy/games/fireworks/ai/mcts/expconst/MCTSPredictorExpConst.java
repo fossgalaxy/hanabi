@@ -1,23 +1,20 @@
 package com.fossgalaxy.games.fireworks.ai.mcts.expconst;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 import com.fossgalaxy.games.fireworks.App;
 import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.ai.mcts.IterationObject;
 import com.fossgalaxy.games.fireworks.ai.mcts.MCTSNode;
-import com.fossgalaxy.games.fireworks.ai.mcts.MCTSPredictor;
 import com.fossgalaxy.games.fireworks.annotations.AgentBuilderStatic;
 import com.fossgalaxy.games.fireworks.annotations.AgentConstructor;
 import com.fossgalaxy.games.fireworks.annotations.Parameter;
 import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.Hand;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
-import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 import com.fossgalaxy.games.fireworks.utils.DebugUtils;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by webpigeon on 14/08/17.

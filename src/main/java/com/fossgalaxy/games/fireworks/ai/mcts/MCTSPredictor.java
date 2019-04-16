@@ -1,5 +1,7 @@
 package com.fossgalaxy.games.fireworks.ai.mcts;
 
+import java.util.Arrays;
+
 import com.fossgalaxy.games.fireworks.App;
 import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.annotations.AgentBuilderStatic;
@@ -8,12 +10,8 @@ import com.fossgalaxy.games.fireworks.annotations.Parameter;
 import com.fossgalaxy.games.fireworks.state.GameState;
 import com.fossgalaxy.games.fireworks.state.Hand;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
-import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 import com.fossgalaxy.games.fireworks.utils.DebugUtils;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Use MCTS for our nodes, and policies for other players.
