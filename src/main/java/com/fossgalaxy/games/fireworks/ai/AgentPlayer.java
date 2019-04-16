@@ -51,7 +51,7 @@ public class AgentPlayer implements Player {
      * 
      * @param actor the player who just made a move
      * @param action the move the player made
-     * @param what we saw happen when the move was made
+     * @param events what we saw happen when the move was made
      */
     @Override
     public void resolveTurn(int actor, Action action, List<GameEvent> events) {

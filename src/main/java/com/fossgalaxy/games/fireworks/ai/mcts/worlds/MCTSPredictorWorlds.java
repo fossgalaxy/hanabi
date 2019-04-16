@@ -60,6 +60,7 @@ public class MCTSPredictorWorlds extends MCTSPredictorExpConst {
      *
      * @param iterationBudget the total number of iterations to use
      * @param determinsations the number of worlds to explore
+     * @param agents the agents we are paired with
      */
     public MCTSPredictorWorlds(int iterationBudget, int determinsations, Agent[] agents) {
         this(iterationBudget, determinsations, MCTSNode.DEFAULT_EXP_CONST, agents);
