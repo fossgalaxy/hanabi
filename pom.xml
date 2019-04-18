@@ -3,7 +3,7 @@
 
     <groupId>com.fossgalaxy.games</groupId>
     <artifactId>fireworks</artifactId>
-    <version>0.2.4</version>
+    <version>0.2.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <description>An implementation of the board game Hanabi</description>
@@ -19,7 +19,7 @@
         <connection>scm:git:git@git.fossgalaxy.com:iggi/hanabi.git</connection>
         <url>scm:git:git@git.fossgalaxy.com:iggi/hanabi.git</url>
         <developerConnection>scm:git:git@git.fossgalaxy.com:iggi/hanabi.git</developerConnection>
-        <tag>v0.2.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!-- Use FOSS Galaxy's parent POM to do most of the build setup for us -->
