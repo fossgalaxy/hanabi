@@ -156,7 +156,7 @@ public class BasicState implements GameState {
         this.deck = new Deck();
         this.table = new EnumMap<>(CardColour.class);
         this.discard = new ArrayList<>();
-        this.movesLeft = playerCount;
+        this.movesLeft = playerCount + 1;
         this.historyEntries = new LinkedList<>();
 
         this.turnNumber = 0;
