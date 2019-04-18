@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v1.2.4
 
+### Added
+- New unit tests to check basic state properties
+- New unit tests to check endgame conditions fire correctly
+
 ### Fixes
 - Fix regression in end of game detection ( issue #23 )
 

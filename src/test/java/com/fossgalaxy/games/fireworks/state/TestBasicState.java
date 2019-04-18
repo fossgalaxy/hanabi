@@ -9,6 +9,41 @@ import com.fossgalaxy.games.fireworks.state.actions.PlayCard;
 public class TestBasicState {
 	
 	/**
+	 * Game logic test: check that initial conditions hold
+	 */
+	@Test
+	public void testCreate() {
+		GameState state = new BasicState(2);
+		assertEquals(8, state.getInformation());
+		assertEquals(3, state.getLives());
+		assertEquals(2, state.getPlayerCount());
+		
+		assertEquals(8, state.getStartingInfomation());
+		assertEquals(3, state.getStartingLives());
+		assertEquals(0, state.getScore());
+	}
+	
+	@Test
+	public void testNoLivesIsGameOver() {
+		
+		GameState state = new BasicState(2);
+		state.setLives(0);
+		assertEquals(true, state.isGameOver());
+	}
+	
+	@Test
+	public void testPerfectScoreIsGameOver() {
+		GameState state = new BasicState(2);
+	
+		for (CardColour colour : CardColour.values()) {
+			state.setTableValue(colour, 5);
+		}
+		
+		assertEquals(25, state.getScore());
+		assertEquals(true, state.isGameOver());
+	}
+	
+	/**
 	 * Game logic test: check the end game plays out correctly
 	 */
 	@Test
