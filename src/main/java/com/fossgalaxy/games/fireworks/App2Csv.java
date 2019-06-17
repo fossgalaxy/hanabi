@@ -3,6 +3,7 @@ package com.fossgalaxy.games.fireworks;
 import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.ai.AgentPlayer;
 import com.fossgalaxy.games.fireworks.players.Player;
+import com.fossgalaxy.games.fireworks.state.GameType;
 import com.fossgalaxy.games.fireworks.utils.AgentUtils;
 
 import java.io.FileOutputStream;
@@ -79,7 +80,7 @@ public class App2Csv {
 
             for (int i = -0; i < players.length; i++) {
                 runner.addPlayer(players[i]);
-                players[i].setID(i, players.length);
+                players[i].setID(i, players.length, new String[5], GameType.NO_LIVES_CURRENT);
             }
 
             GameStats stats = runner.playGame(seed);
@@ -181,7 +182,7 @@ public class App2Csv {
         try {
             for (int i = -0; i < players.length; i++) {
                 runner.addPlayer(players[i]);
-                players[i].setID(i, players.length);
+                players[i].setID(i, players.length, new String[5], GameType.NO_LIVES_CURRENT);
             }
 
             GameStats stats = runner.playGame(seed);

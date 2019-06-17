@@ -1,5 +1,6 @@
 package com.fossgalaxy.games.fireworks.players;
 
+import com.fossgalaxy.games.fireworks.state.GameType;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
@@ -46,12 +47,10 @@ public interface Player {
      *
      * @param id the ID of this player
      * @param nPlayers the number of players in the game
+     * @param playerNames the players you are playing with (Array of nulls if unknown)
+     * @param type the type of game being played
      */
-    void setID(int id, int nPlayers);
-
-    default void setID(int id, int nPlayers, String[] playerNames){
-        setID(id, nPlayers);
-    }
+    void setID(int id, int nPlayers, String[] playerNames, GameType type);
 
     String getName();
 

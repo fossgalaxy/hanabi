@@ -24,6 +24,7 @@ public class GameRunner {
     private static final int[] HAND_SIZE = {-1, -1, 5, 5, 4, 4};
     private final Logger logger = LoggerFactory.getLogger(GameRunner.class);
     private final String gameID;
+    private final GameType type;
 
     protected final Player[] players;
     protected final String[] playerNames;
@@ -74,6 +75,7 @@ public class GameRunner {
         this.players = new Player[state.getPlayerCount()];
         this.playerNames = new String[state.getPlayerCount()];
         this.state = Objects.requireNonNull(state);
+        this.type = state instanceof NoLifeState ? GameType.NO_LIVES_ZERO : GameType.NO_LIVES_CURRENT;
         this.nPlayers = 0;
         this.nextPlayer = 0;
         this.moves = 0;
@@ -127,7 +129,7 @@ public class GameRunner {
         //step 1: tell all players their IDs
         for (int i = 0; i < players.length; i++) {
             logger.info("player {} is {}", i, players[i]);
-            players[i].setID(i, players.length, playerNames);
+            players[i].setID(i, players.length, playerNames, type);
         }
 
         state.init(seed);

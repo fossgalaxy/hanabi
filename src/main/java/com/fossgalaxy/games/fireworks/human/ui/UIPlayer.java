@@ -4,6 +4,7 @@ import com.fossgalaxy.games.fireworks.ai.Agent;
 import com.fossgalaxy.games.fireworks.ai.AgentPlayer;
 import com.fossgalaxy.games.fireworks.human.ui.pretty.HeuristicGameView;
 import com.fossgalaxy.games.fireworks.human.ui.pretty.HumanUIAgent;
+import com.fossgalaxy.games.fireworks.state.GameType;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.CardInfoColour;
 import com.fossgalaxy.games.fireworks.state.events.CardInfoValue;
@@ -48,8 +49,8 @@ public class UIPlayer extends AgentPlayer {
     }
 
     @Override
-    public void setID(int id, int nPlayers) {
-        super.setID(id, nPlayers);
+    public void setID(int id, int nPlayers, String[] player, GameType type) {
+        super.setID(id, nPlayers, player, type);
 
         if (interactive) {
             this.view = new HeuristicGameView(state, id, (HumanUIAgent)policy);

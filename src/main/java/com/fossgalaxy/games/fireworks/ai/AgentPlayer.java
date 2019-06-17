@@ -3,6 +3,8 @@ package com.fossgalaxy.games.fireworks.ai;
 import com.fossgalaxy.games.fireworks.players.Player;
 import com.fossgalaxy.games.fireworks.state.BasicState;
 import com.fossgalaxy.games.fireworks.state.GameState;
+import com.fossgalaxy.games.fireworks.state.GameType;
+import com.fossgalaxy.games.fireworks.state.NoLifeState;
 import com.fossgalaxy.games.fireworks.state.actions.Action;
 import com.fossgalaxy.games.fireworks.state.events.GameEvent;
 
@@ -71,19 +73,19 @@ public class AgentPlayer implements Player {
     }
 
     @Override
-    public void setID(int id, int nPlayers, String[] names) {
+    public void setID(int id, int nPlayers, String[] names, GameType type) {
         assert state == null;
         assert playerID == -1;
 
         this.playerID = id;
-        this.state = new BasicState(nPlayers);
+        if  (type.equals(GameType.NO_LIVES_CURRENT)) {
+            this.state = new BasicState(nPlayers);
+        } else if (type.equals(GameType.NO_LIVES_ZERO)) {
+            this.state = new NoLifeState(nPlayers);
+        } else {
+            throw new IllegalArgumentException("Unsupported game type");
+        }
         policy.receiveID(id, names);
-    }
-
-    @Override
-    public void setID(int id, int nPlayers) {
-        String[] names = new String[nPlayers];
-        setID(id, nPlayers, names);
     }
 
     @Override
