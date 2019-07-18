@@ -36,6 +36,7 @@ public interface Agent {
     default void receiveID(int agentID, String[] names) {
         receiveID(agentID);
     }
+    default void onGameOver(int agentID, GameState state){ }
 
     @Deprecated
     default void receiveID(int agentID) {

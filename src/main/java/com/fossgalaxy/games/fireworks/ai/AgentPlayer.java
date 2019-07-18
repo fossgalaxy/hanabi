@@ -89,6 +89,11 @@ public class AgentPlayer implements Player {
     }
 
     @Override
+    public void onGameOver() {
+        policy.onGameOver(playerID, state.getCopy());
+    }
+
+    @Override
     public String getName() {
         return name;
     }

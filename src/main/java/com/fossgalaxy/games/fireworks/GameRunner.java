@@ -238,6 +238,12 @@ public class GameRunner {
                     }
                 }
             }
+
+            // tell players about the end of the game
+            for (Player player : players) {
+                player.onGameOver();
+            }
+
             return new GameStats(gameID, players.length, state.getScore(), state.getLives(), moves, state.getInfomation(), strikes);
         } catch (Exception ex) {
             logger.error("the game went bang", ex);
